@@ -1,10 +1,11 @@
 <template>
     <div class="main-container">
         主框架
-        <RouterView>
-            <slot></slot>
+        <RouterView v-slot="{ Component }">
+            <Transition name="page" mode="out-in">
+            <component :is="Component"></component>
+            </Transition>
         </RouterView>
-
     </div>
 </template>
 

@@ -4,6 +4,10 @@ import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/',
+    redirect: '/dashboard'
+  },
+  {
     path: '/auth',
     redirect: '/auth/login',
     component: AuthWrpVue,
@@ -33,49 +37,49 @@ const routes: RouteRecordRaw[] = [
         path: "/dashboard/home",
         name: "Home",
         component: () => import('@/pages/dashboard/Home.vue'),
-        meta: { title: 'MC - 工作台'}
+        meta: { title: 'MC - 工作台', isAuth: true }
       },
       {
         path: "/dashboard/chat",
         name: "Chat",
         component: () => import('@/pages/chat/Detail.vue'),
-        meta: { title: 'MC - 问答'}
+        meta: { title: 'MC - 问答', isAuth: true }
       },
       {
         path: "/dashboard/case/list",
         name: "Case",
         component: () => import('@/pages/case/List.vue'),
-        meta: { title: 'MC - 病例列表'}
+        meta: { title: 'MC - 病例列表', isAuth: true }
       },
       {
         path: "/dashboard/case/create",
         name: "CaseCreate",
         component: () => import('@/pages/case/Create.vue'),
-        meta: { title: 'MC - 创建病例'}
+        meta: { title: 'MC - 创建病例', isAuth: true }
       },
       {
         path: "/dashboard/case/detail",
         name: "CaseDetail",
         component: () => import('@/pages/case/Detail.vue'),
-        meta: { title: 'MC - 病例详情'}
+        meta: { title: 'MC - 病例详情', isAuth: true }
       },
       {
         path: "/dashboard/plan/list",
         name: "PlanList",
         component: () => import('@/pages/plan/List.vue'),
-        meta: { title: 'MC - 计划列表'}
+        meta: { title: 'MC - 计划列表', isAuth: true }
       },
       {
         path: "/dashboard/plan/create",
         name: "PlanCreate",
         component: () => import('@/pages/plan/Create.vue'),
-        meta: { title: 'MC - 创建计划'}
+        meta: { title: 'MC - 创建计划', isAuth: true }
       },
       {
         path: "/dashboard/plan/detail",
         name: "PlanDetail",
         component: () => import('@/pages/plan/Detail.vue'),
-        meta: { title: 'MC - 计划详情'}
+        meta: { title: 'MC - 计划详情', isAuth: true }
       }
     ]
   },
@@ -83,7 +87,7 @@ const routes: RouteRecordRaw[] = [
     path: '/user',
     name: 'User',
     component: () => import('@/pages/user/Detail.vue'),
-    meta: {title: 'MC - 个人中心'}
+    meta: {title: 'MC - 个人中心', isAuth: true }
   }
 ]
 

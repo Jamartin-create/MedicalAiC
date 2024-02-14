@@ -1,4 +1,4 @@
-// import { useAuthStore } from "@/stores/auth";
+import { useAuthStore } from "@/store/auth";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 function errorHandler(status: number, options: any) {
@@ -80,8 +80,10 @@ function reqInter(config: InternalAxiosRequestConfig) {
       cancel: c,
     });
   });
-//   if (useAuthStore().isLoggin)
-//     config.headers.Authorization = "Bearer " + useAuthStore().token;
+
+  const authStore = useAuthStore()
+  if (authStore.isLogin)
+    config.headers.Authorization = "Bearer " + authStore.token;
   return config;
 }
 

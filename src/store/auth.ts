@@ -1,24 +1,43 @@
 /** @description 用户仓库 */
-import { login } from '@/api/auth'
+import { emailLogin, login } from '@/api/auth'
+import type { PwdLoginParamsT, EmailLoginParamsT } from '@/api/auth'
 import { piniaPersistConfig } from '../plugins/pinia'
 import { defineStore } from 'pinia'
+import { ResponseT } from '@/utils/request'
+import router from '@/router'
 
 const storeName = 'Auth'
 
-export const UserStore = defineStore({
+export const useAuthStore = defineStore({
     id: storeName,
     state: () => ({
         token: '',
     }),
     getters: {
-        isLogin() {
-            return this.isLogin
+        isLogin(): boolean {
+            return !!this.token
         }
     },
     actions: {
-        async login(username: string, pwd: string) {
-            const res = await login({username, password: pwd})
-            console.log(res)
+        // 登录
+        async login(params: PwdLoginParamsT | EmailLoginParamsT) {
+            let res: null | ResponseT = null
+            // 类型收窄
+            if("email" in params) {
+                res = await emailLogin(params)
+            } else {
+                res = await login(params)
+            }
+
+            const { code, data, msg } = res;
+            if (code !== 0) {
+                // TODO: 提示弹窗
+                console.log(msg)
+                return
+            }
+            
+            this.token = data
+            router.push({name: 'Dashboard'})
         }
     },
     persist: piniaPersistConfig(storeName)

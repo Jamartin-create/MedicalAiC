@@ -1,8 +1,14 @@
 import axios from "@/plugins/axios";
 import { AxiosRequestConfig } from "axios";
 
+export type ResponseT = {
+    code: number;
+    msg: string;
+    data: any;
+}
+
 export class Request {
-  static get = (url: string, params: any) => {
+  static get = (url: string, params: any): Promise<ResponseT> => {
     return new Promise((reso, reje) => {
       axios
         .get(url, { params: params })
@@ -14,7 +20,7 @@ export class Request {
         });
     });
   };
-  static post = (url: string, params: any, headers?: AxiosRequestConfig) => {
+  static post = (url: string, params: any, headers?: AxiosRequestConfig): Promise<ResponseT> => {
     return new Promise((reso, reje) => {
       axios
         .post(url, params, headers)
@@ -26,7 +32,7 @@ export class Request {
         });
     });
   };
-  static delete = (url: string, params: any) => {
+  static delete = (url: string, params: any): Promise<ResponseT> => {
     return new Promise((reso, reje) => {
       axios
         .delete(url, { params: params })
@@ -38,7 +44,7 @@ export class Request {
         });
     });
   };
-  static put = (url: string, params: any) => {
+  static put = (url: string, params: any): Promise<ResponseT> => {
     return new Promise((reso, reje) => {
       axios
         .put(url, params)

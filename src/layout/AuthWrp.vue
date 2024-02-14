@@ -1,9 +1,10 @@
 <template>
     <div class="auth-container">
-        权限界面框架
-        <RouterView>
-            <slot></slot>
-        </RouterView>
+      <RouterView v-slot="{ Component }">
+        <Transition name="page" mode="out-in">
+          <component :is="Component"></component>
+        </Transition>
+      </RouterView>
     </div>
 </template>
 
