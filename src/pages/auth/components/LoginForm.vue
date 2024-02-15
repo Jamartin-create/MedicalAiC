@@ -38,9 +38,9 @@
 <script setup lang="ts">
 import { PwdLoginParamsT } from '@/api/auth'
 import { helpers, required } from '@vuelidate/validators'
-// import { useAuthStore } from '@/store/auth'
+import { useAuthStore } from '@/store/auth'
 import { useFormValidate } from '@/hooks/useValidate'
-// const auth = useAuthStore()
+const auth = useAuthStore()
 
 const initForm: PwdLoginParamsT = {
     username: '',
@@ -54,14 +54,7 @@ const rule = {
 }
 
 const { v$, form, clear, submit, getMsgList } = useFormValidate<PwdLoginParamsT>(initForm, rule, {
-    callback: () => {
-        // auth.login(form.value)
-        console.log('dddd')
-    }
+    callback: () => auth.login(form.value)
 })
 
 </script>
-
-<style scoped>
-
-</style>

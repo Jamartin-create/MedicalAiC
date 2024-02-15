@@ -47,7 +47,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: "/dashboard/case/list",
-        name: "Case",
+        name: "CaseList",
         component: () => import('@/pages/case/List.vue'),
         meta: { title: 'MC - 病例列表', isAuth: true }
       },

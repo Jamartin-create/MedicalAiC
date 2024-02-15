@@ -1,3 +1,4 @@
+import { notify } from "@/components/Notification";
 import { useAuthStore } from "@/store/auth";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
@@ -24,7 +25,7 @@ function errorHandler(status: number, options: any) {
     default:
       break;
   }
-  message && window.alert(message);
+  message && notify(message);
 }
 
 //取消重复请求

@@ -5,6 +5,7 @@ import { piniaPersistConfig } from '../plugins/pinia'
 import { defineStore } from 'pinia'
 import { ResponseT } from '@/utils/request'
 import router from '@/router'
+import { notify } from '@/components/Notification'
 
 const storeName = 'Auth'
 
@@ -37,7 +38,9 @@ export const useAuthStore = defineStore({
             }
             
             this.token = data
-            router.push({name: 'Dashboard'})
+            router.push({ name: 'Dashboard' })
+
+            notify('登录成功')
         }
     },
     persist: piniaPersistConfig(storeName)

@@ -55,6 +55,7 @@ import type { RegisterParamsT } from '@/api/auth'
 import { helpers, required } from '@vuelidate/validators'
 import { useFormValidate } from '@/hooks/useValidate'
 import { useRouter } from 'vue-router'
+import { notify } from '@/components/Notification'
 
 const router = useRouter()
 
@@ -84,7 +85,8 @@ const { v$, form, clear, submit, getMsgList } = useFormValidate<RegisterParamsT>
             console.log(res.msg)
             return
         }
-        router.push({name: 'Login'})
+        router.push({ name: 'Login' })
+        notify('注册成功，自动跳转至登录页')
     }
 })
 

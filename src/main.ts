@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import './style.css'
+import '@/assets/style/global.css'
 import App from './App.vue'
 
 // vuetify
@@ -13,8 +14,12 @@ import vuetify from './plugins/vuetify'
 // router
 import router from './router'
 
+// global Component
+import { NotificationPlugin } from '@/components/Notification'
+
 createApp(App)
     .use(router)
     .use(pinia)
     .use(vuetify)
+    .use(NotificationPlugin)
     .mount('#app')
