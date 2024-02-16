@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="test">
         首页控制台
     </div>
 </template>
@@ -9,5 +9,4 @@
 </script>
 
 <style scoped>
-
 </style>
