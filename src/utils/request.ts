@@ -70,30 +70,36 @@ export class Request {
 
   // 流式调用
   static streamFetch = (url: string, params: any, method: string, callback: (string) => void) => {
-    fetch(`${import.meta.env.VITE_BASE_URL}${url}`, {
-      method,
-      body: JSON.stringify(params),
-      headers: {
-        Authorization: 'Bearer ' + useAuthStore().token,
-        'Content-Type': 'application/json'
-      }
-    }).then(async (response) => {
-      const encode = new TextDecoder('utf-8')
-      const reader = response.body?.getReader()
-
-      while (true) {
-        const red = await reader?.read();
-        if (red?.done) break
-        const text = encode.decode(red?.value)
-
-        if (text === "<ERR>") {
-          callback("Error")
-          break
-        } else {
-          const { data } = eventStreamDataTrans(text)
-          callback(JSON.parse(data).result)
+    return new Promise((resolve, reject) => {
+      fetch(`${import.meta.env.VITE_BASE_URL}${url}`, {
+        method,
+        body: JSON.stringify(params),
+        headers: {
+          Authorization: 'Bearer ' + useAuthStore().token,
+          'Content-Type': 'application/json'
         }
-      }
+      }).then(async (response) => {
+        const encode = new TextDecoder('utf-8')
+        const reader = response.body?.getReader()
+  
+        while (true) {
+          const red = await reader?.read();
+          if (red?.done) {
+            resolve(true)
+            break
+          }
+          const text = encode.decode(red?.value)
+  
+          if (text === "<ERR>") {
+            callback("Error")
+            reject('error')
+            break
+          } else {
+            const { data } = eventStreamDataTrans(text)
+            callback(JSON.parse(data).result)
+          }
+        }
+      })
     })
   }
 }

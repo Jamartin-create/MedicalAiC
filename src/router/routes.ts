@@ -41,9 +41,16 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: "/dashboard/chat",
-        name: "Chat",
-        component: () => import('@/pages/chat/Detail.vue'),
-        meta: { title: 'MC - 问答', isAuth: true }
+        name: "ChatRoot",
+        redirect: '/dashboard/chat/create',
+        children: [
+          {
+            path: "/dashboard/chat/:id",
+            name: "Chat",
+            component: () => import('@/pages/chat/Detail.vue'),
+            meta: { title: 'MC - 问答', isAuth: true }
+          },
+        ]
       },
       {
         path: "/dashboard/case/list",

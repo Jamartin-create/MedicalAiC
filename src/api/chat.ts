@@ -16,7 +16,7 @@ export type KeepOnParamsT = {
 // 续写对话
 export function keepOnChat(params: KeepOnParamsT, callback: (string) => void) {
     // return Request.put('/chat/v1/record/create', params )
-    Request.streamFetch('/chat/v1/record/keep', params, 'post', callback)
+    return Request.streamFetch('/chat/v1/record/keep', params, 'post', callback)
 }
 
 // 结束对话

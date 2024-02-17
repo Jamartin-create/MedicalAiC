@@ -37,7 +37,7 @@ const drawer = ref<boolean>(true)
 const rail = ref<boolean>(true)
 
 const handleSelect = (a: any) => {
-    router.push({ name: a.id })
+    router.push({ path: a.id })
 }
 
 </script>
