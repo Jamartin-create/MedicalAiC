@@ -10,12 +10,11 @@ export function createChat() {
 }
 
 export type KeepOnParamsT = {
-    content: string;
+    content: string; // 聊天内容
 } & ChatIdT
 
 // 续写对话
 export function keepOnChat(params: KeepOnParamsT, callback: (string) => void) {
-    // return Request.put('/chat/v1/record/create', params )
     return Request.streamFetch('/chat/v1/record/keep', params, 'post', callback)
 }
 

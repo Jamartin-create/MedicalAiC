@@ -1,9 +1,9 @@
 import { Request } from "@/utils/request";
 
 export type PwdLoginParamsT = {
-    username: string;
-    password: string;
-    staystatus?: boolean;
+    username: string; // 用户名
+    password: string; // 密码
+    staystatus?: boolean; // 保存登录状态
 }
 
 // 普通登录
@@ -12,8 +12,8 @@ export function login(params: PwdLoginParamsT) {
 }
 
 export type EmailLoginParamsT = {
-    email: string;
-    vcode: string;
+    email: string; // 邮箱
+    vcode: string; // 验证码
 }
 
 // TODO: 邮箱登录
@@ -22,11 +22,11 @@ export function emailLogin(params: EmailLoginParamsT) {
 }
 
 export type RegisterParamsT = {
-    username: string;
+    username: string; // 用户名
     // email: string;
-    password: string;
-    repassword: string;
-    realname: string;
+    password: string; // 密码
+    repassword: string; // 确认密码
+    realname: string; //。 真实姓名
 }
 
 // 注册
