@@ -1,4 +1,5 @@
 import { Request } from "@/utils/request";
+import { PageParamsT } from "./types";
 
 const prefix = '/case/v1'
 
@@ -9,8 +10,8 @@ export type CaseIdT = {
 export type CreateCaseParamsT = {
     curSituation: number; // 当前状况：0=差、1=一般、2=好
     summary: string; // 初始病情描述
-    medical: string; // 用药史
-    mdHistory: string; // 病史
+    medical: string[]; // 用药史
+    mdHistory: string[]; // 病史
 }
 
 // 创建病例
@@ -34,6 +35,6 @@ export function getCaseDetail(params: CaseIdT) {
 }
 
 // 获取病例列表
-export function getCaseList() {
-    return Request.get(`${prefix}/mdCase/list`, {})
+export function getCaseList(params: PageParamsT) {
+    return Request.get(`${prefix}/mdCase/list`, params)
 }
