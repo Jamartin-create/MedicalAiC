@@ -37,7 +37,7 @@ export function getPlanList() {
 }
 
 // 获取计划复盘
-export function getPlanReview(params: UidT) {
+export function getPlanReview(params: PlanIdFkT) {
     return Request.get(`${prefix}/plan/review`, params)
 }
 

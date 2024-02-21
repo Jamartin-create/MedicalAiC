@@ -87,7 +87,13 @@ const routes: RouteRecordRaw[] = [
         name: "PlanDetail",
         component: () => import('@/pages/plan/Detail.vue'),
         meta: { title: 'MC - 计划详情', isAuth: true }
-      }
+      },
+      {
+        path: "/dashboard/plan/record/create",
+        name: "RecordCreate",
+        component: () => import('@/pages/plan/CreateRecord.vue'),
+        meta: { title: 'MC - 打卡', isAuth: true }
+      },
     ]
   },
   {

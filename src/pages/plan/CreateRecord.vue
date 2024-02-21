@@ -1,12 +1,11 @@
 <template>
     <div>
-        <PlanCreateForm />
+        <RecordCreateForm />
     </div>
 </template>
 
 <script setup lang="ts">
-import PlanCreateForm from './components/PlanCreateForm.vue';
-
+import RecordCreateForm from './components/RecordCreateForm.vue';
 </script>
 
 <style scoped>
