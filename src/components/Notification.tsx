@@ -14,10 +14,9 @@ const NotificationComponent = defineComponent({
     onClose: Function
   },
   setup(props: NotificationProps) {
-    console.log(props.onClose)
     return () => (
       <div class="custom-notification">
-        {props.message}
+        { props.message }
         <div class="close-btn" onClick={ props.onClose }>关闭</div>
       </div>
     );
@@ -51,7 +50,7 @@ export const notify = (message: string) => {
   
     notificationApp.mount(notificationContainer);
   
-    setTimeout(() => onClose(), 1500)
+    setTimeout(() => { onClose() }, 3000)
 };
   
 export const NotificationPlugin = {
