@@ -13,7 +13,10 @@
             </template>
         </v-list>
         <template #append>
-            <v-list-item title="Logout" nav>
+            <v-list-item nav>
+                <template v-slot:prepend>
+                    <v-btn @click="logout" v-if="!rail" prepend-icon="mdi-logout">退出登录</v-btn>
+                </template>
                 <template v-slot:append>
                     <v-btn
                         variant="text"
@@ -30,8 +33,10 @@
 import { ref } from 'vue';
 import { navList } from '../config';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/store/auth';
 
 const router = useRouter()
+const pinia = useAuthStore()
 
 const drawer = ref<boolean>(true)
 const rail = ref<boolean>(true)
@@ -40,6 +45,7 @@ const handleSelect = (a: any) => {
     router.push({ path: a.id })
 }
 
+const logout = () => pinia.logout()
 </script>
 
 <style scoped>

@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/store/auth";
 import routes from "./routes";
+import { notify } from "@/components/Notification";
 
 const router = createRouter({
   history:
@@ -14,16 +15,15 @@ const router = createRouter({
   },
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _, next) => {
   const auth = useAuthStore();
   if (to.meta?.isAuth && !auth.isLogin) {
-    window.alert("请先登录");
+    notify('请先登录')
     next({ name: "Login" });
     return;
   }
-  if (["login"].includes(to.name as string) && auth.isLogin) {
-    window.alert("已登录");
-    next(from);
+  if (["Login"].includes(to.name as string) && auth.isLogin) {
+    next({ name: 'Dashboard' });
     return;
   }
   next();

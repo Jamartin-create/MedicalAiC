@@ -25,7 +25,7 @@ export const useAuthStore = defineStore({
             return !!this.token
         },
         userInfoGetter(): any {
-            return this.userInfo
+            return this.userInfo || {}
         }
     },
     actions: {
@@ -39,17 +39,19 @@ export const useAuthStore = defineStore({
                 res = await login(params)
             }
 
-            const { code, data, msg } = res;
-            if (code !== 0) {
-                // TODO: 提示弹窗
-                console.log(msg)
-                return
-            }
+            const { code, data } = res;
+            if (code !== 0) return
             
             this.token = data
+
+            await this.getUserInfo()
             router.push({ name: 'Dashboard' })
 
             notify('登录成功')
+        },
+        async logout() {
+            this.$reset()
+            router.push({ name: 'Login' })
         },
         // 获取用户信息
         async getUserInfo(): Promise<boolean> {
