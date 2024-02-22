@@ -13,13 +13,13 @@ function generateFileName(name: string) {
 }
 
 // 上传
-export async function upload(file: File, _: UploadTypeT = 'aliyunoss') {
+export async function upload(file: File, _: UploadTypeT = 'aliyunoss'): Promise<string> {
     return new Promise(async (resolve, reject) => {
         try {
             const aliOss = await AliOssClient.getInstance()
             const filename = generateFileName(file.name)
             // 直接把 filename 返回存库，每次获取图片地址都通过 signatureUrl 获取
-            aliOss.put(filename, file).then(() => resolve(filename))
+            aliOss.put(filename, file).then((res) => resolve(res.url))
         } catch (e: any) {
             notify(e.message)
             reject(e)

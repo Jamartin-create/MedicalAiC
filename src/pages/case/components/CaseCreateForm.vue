@@ -52,9 +52,11 @@
 import { CreateCaseParamsT, createCase } from '@/api/case'
 import { helpers, required } from '@vuelidate/validators'
 import { useFormValidate } from '@/hooks/useValidate'
-// import { notify } from '@/components/Notification';
+import { notify } from '@/components/Notification';
 import { ref } from 'vue'
-import router from '@/router';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 const initForm: CreateCaseParamsT = {
     curSituation: 0,
@@ -74,7 +76,7 @@ const { v$, form, clear, submit, getMsgList } = useFormValidate<CreateCaseParams
     callback: async () => {
         const { code } = await createCase(form.value)
         if (code !== 0) return
-        // notify('创建成功')
+        notify('创建成功')
         router.push({ name: 'CaseList' })
     }
 })

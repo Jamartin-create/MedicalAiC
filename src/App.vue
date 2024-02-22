@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router';
+import { useAuthStore } from '@/store/auth';
+
+useAuthStore().getUserInfo()
 </script>
 
 <template>

@@ -1,44 +1,92 @@
 <template>
     <div>
-        个人中心
-        <v-file-input
-            accept="image/*"
-            label="File input"
+        <v-btn @click="toDashBoard">返回</v-btn>
+
+        <v-card
+            class="mx-auto"
+            color="#26c6da"
+            theme="dark"
+            max-width="400"
+            prepend-icon="mdi-twitter"
             :loading="loading"
-            v-model:model-value="files"
-            @update:model-value="handleFileUpload"
-        ></v-file-input>
+            title="Twitter"
+        >
+            <template v-slot:prepend>
+                <v-icon size="x-large"></v-icon>
+            </template>
+
+            <v-card-text class="text-h5 py-2">
+                "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well."
+            </v-card-text>
+
+            <v-card-actions>
+                <v-list-item class="w-100">
+                    <template v-slot:prepend>
+                        <v-avatar
+                            color="grey-darken-3"
+                            :image="userInfo.avatar"
+                        ></v-avatar>
+                    </template>
+
+                    <v-list-item-title>{{ userInfo.realname }}</v-list-item-title>
+
+                    <v-list-item-subtitle>{{ userInfo.tel }}</v-list-item-subtitle>
+
+                    <template v-slot:append>
+                        <div class="justify-self-end">
+                            <v-icon class="me-1" icon="mdi-heart"></v-icon>
+                                <span class="subheading me-2">{{ userInfo.gender }}</span>
+                                <span class="me-1">·</span>
+                            <v-icon class="me-1" icon="mdi-share-variant"></v-icon>
+                            <span class="subheading">{{ userInfo.age }}</span>
+                        </div>
+                    </template>
+                </v-list-item>
+            </v-card-actions>
+        </v-card>
     </div>
 </template>
 
 <script setup lang="ts">
-import { AliOssClient } from '@/plugins/alioss'
-import { upload } from '@/utils/upload'
+import { notify } from '@/components/Notification';
+import { useAuthStore } from '@/store/auth';
+import { onMounted } from 'vue';
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
 
-const files = ref<File[]>([])
+const pinia = useAuthStore()
+const router = useRouter()
+
 const loading = ref<boolean>(false)
 
-AliOssClient.getInstance().then(res => {
-    // 有效期一天
-    const url = res.signatureUrl('/IMG_3672 21708505066 21708506291.png', { expires: 60 * 60 * 24 })
-    console.log('----', url)
-})
+const userInfo = ref<any>({})
 
-const handleFileUpload = async (e: File[]) => {
-    const file = e[0]
-
+async function loadData() {
     loading.value = true
-    try {
-        const res = await upload(file)
-        console.log('---', res)
+    try { 
+        if (await pinia.getUserInfo()) {
+            userInfo.value = pinia.userInfo
+            return
+        }
+        notify('用户信息加载失败')
     } catch (e) {
         console.log(e)
     } finally {
         loading.value = false
     }
-    
 }
+
+
+// 返回首页
+const toDashBoard = () => {
+    router.push({ name: 'Dashboard' })
+}
+
+
+onMounted(() => {
+    loadData()
+})
+
 </script>
 
 <style scoped>

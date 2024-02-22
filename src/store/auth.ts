@@ -1,5 +1,5 @@
 /** @description 用户仓库 */
-import { emailLogin, login } from '@/api/auth'
+import { emailLogin, getInfo, login } from '@/api/auth'
 import type { PwdLoginParamsT, EmailLoginParamsT } from '@/api/auth'
 import { piniaPersistConfig } from '../plugins/pinia'
 import { defineStore } from 'pinia'
@@ -9,14 +9,23 @@ import { notify } from '@/components/Notification'
 
 const storeName = 'Auth'
 
+type State = {
+    token: string;
+    userInfo: any;
+}
+
 export const useAuthStore = defineStore({
     id: storeName,
-    state: () => ({
+    state: (): State => ({
         token: '',
+        userInfo: null,
     }),
     getters: {
         isLogin(): boolean {
             return !!this.token
+        },
+        userInfoGetter(): any {
+            return this.userInfo
         }
     },
     actions: {
@@ -41,6 +50,14 @@ export const useAuthStore = defineStore({
             router.push({ name: 'Dashboard' })
 
             notify('登录成功')
+        },
+        // 获取用户信息
+        async getUserInfo(): Promise<boolean> {
+            if (!this.isLogin) return false
+            const { code, data } = await getInfo()
+            if (code !== 0) return false
+            this.userInfo = data
+            return true
         }
     },
     persist: piniaPersistConfig(storeName)

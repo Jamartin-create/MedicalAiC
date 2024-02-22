@@ -1,5 +1,6 @@
 import AuthWrpVue from '@/layout/AuthWrp.vue';
 import ContainerWrpVue from '@/layout/ContainerWrp.vue';
+import SinglePageWrp from '@/layout/SignlePageWrp.vue'
 import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
@@ -99,8 +100,23 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/user',
     name: 'User',
-    component: () => import('@/pages/user/Detail.vue'),
-    meta: {title: 'MC - 个人中心', isAuth: true }
+    component: SinglePageWrp,
+    redirect: '/user/detail',
+    meta: { title: 'MC - 个人中心', isAuth: true },
+    children: [
+      {
+        path: "/user/detail",
+        name: "UserDetail",
+        component: () => import('@/pages/user/Detail.vue'),
+        meta: { title: "MC - 个人中心", isAuth: true }
+      },
+      {
+        path: "/user/detail/edit",
+        name: "UserEdit",
+        component: () => import('@/pages/user/Edit.vue'),
+        meta: {title: "MC - 个人中心", isAuth: true}
+      }
+    ]
   }
 ]
 

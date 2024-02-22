@@ -1,5 +1,9 @@
 import { Request } from "@/utils/request";
 
+export type UidT = {
+    uid: string;
+}
+
 export type PwdLoginParamsT = {
     username: string; // 用户名
     password: string; // 密码
@@ -32,4 +36,22 @@ export type RegisterParamsT = {
 // 注册
 export function register(params: RegisterParamsT) {
     return Request.post('/user/v1/auth/registry', params)
+}
+
+// 获取用户信息
+export function getInfo() {
+    return Request.get('/user/v1/info/', {})
+}
+
+export type UpdateUserInfoParamsT = {
+    realname: string;
+    gender: number;
+    age: number;
+    avatar: string;
+    tel: string;
+} & UidT
+
+// 更新用户信息
+export function editInfo(params: UpdateUserInfoParamsT) {
+    return Request.put('/user/v1/info/', params)
 }
