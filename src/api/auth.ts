@@ -1,13 +1,13 @@
-import { Request } from "@/utils/request";
+import { Request } from '@/utils/request'
 
 export type UidT = {
-    uid: string;
+    uid: string
 }
 
 export type PwdLoginParamsT = {
-    username: string; // 用户名
-    password: string; // 密码
-    staystatus?: boolean; // 保存登录状态
+    username: string // 用户名
+    password: string // 密码
+    staystatus?: boolean // 保存登录状态
 }
 
 // 普通登录
@@ -16,8 +16,8 @@ export function login(params: PwdLoginParamsT) {
 }
 
 export type EmailLoginParamsT = {
-    email: string; // 邮箱
-    vcode: string; // 验证码
+    email: string // 邮箱
+    vcode: string // 验证码
 }
 
 // TODO: 邮箱登录
@@ -26,11 +26,11 @@ export function emailLogin(params: EmailLoginParamsT) {
 }
 
 export type RegisterParamsT = {
-    username: string; // 用户名
+    username: string // 用户名
     // email: string;
-    password: string; // 密码
-    repassword: string; // 确认密码
-    realname: string; //。 真实姓名
+    password: string // 密码
+    repassword: string // 确认密码
+    realname: string //。 真实姓名
 }
 
 // 注册
@@ -44,11 +44,15 @@ export function getInfo() {
 }
 
 export type UpdateUserInfoParamsT = {
-    realname: string;
-    gender: number;
-    age: number;
-    avatar: string;
-    tel: string;
+    realname: string
+    gender: number
+    age: number
+    avatar: string
+    tel: string
+    allergy: string[] // 过敏史
+    medicalHis: string[] // 病史
+    height: number // 身高
+    weight: number // 体重
 } & UidT
 
 // 更新用户信息

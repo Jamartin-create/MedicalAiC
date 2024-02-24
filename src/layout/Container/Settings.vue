@@ -12,18 +12,18 @@
         <v-card>
             <v-card-text>
                 <div class="mx-auto text-center">
-                    <v-avatar color="brown" @click="toDetail">
+                    <v-avatar color="brown">
                         <v-img
                             :src="pinia.userInfoGetter.avatar || defaultAvatar"
                         />
                     </v-avatar>
-                    <h3>{{ pinia.userInfoGetter.realname }}</h3>
+                    <h3 class="mt-5">{{ pinia.userInfoGetter.realname }}</h3>
                     <p class="text-caption mt-1">
                         {{ pinia.userInfoGetter.email }}
                     </p>
                     <v-divider class="my-3"></v-divider>
                     <v-btn rounded variant="text" @click="toEdit">
-                        编辑信息
+                        更新信息
                     </v-btn>
                 </div>
             </v-card-text>
@@ -38,8 +38,6 @@ import defaultAvatar from '@/assets/images/default-avatar.svg'
 
 const pinia = useAuthStore()
 const router = useRouter()
-
-const toDetail = () => router.push({ name: 'UserDetail' })
 
 const toEdit = () => router.push({ name: 'UserEdit' })
 </script>

@@ -6,7 +6,8 @@
                 <div>Medical-Ai</div>
             </div>
             <div class="page-description">
-                High Medical Daily - 你的生活健康小助手 ~
+                High quality and healthy lifestyle assistant
+                <p class="text-right">你的高质量健康生活小助手 ~</p>
             </div>
         </div>
         <v-divider :vertical="true" />

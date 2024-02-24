@@ -1,61 +1,59 @@
 <template>
-    <div>
-        <v-btn @click="toDashBoard">返回</v-btn>
-
-        <v-card
-            class="mx-auto"
-            color="#26c6da"
-            theme="dark"
-            max-width="400"
-            prepend-icon="mdi-twitter"
-            :loading="loading"
-            title="Twitter"
+    <v-container class="user-basic-info">
+        <v-breadcrumbs :items="breadcrumbs"></v-breadcrumbs>
+        <v-row justify="center">
+            <v-avatar size="70px">
+                <v-img :src="userInfo.avatar || defaultAvatar" />
+            </v-avatar>
+        </v-row>
+        <v-row justify="center" class="mt-5 text-h5">
+            {{ userInfo.realname }}
+        </v-row>
+        <v-row
+            justify="center"
+            class="mt-5 d-flex align-center text-body-2 text-grey-lighten-1"
         >
-            <template v-slot:prepend>
-                <v-icon size="x-large"></v-icon>
-            </template>
-
-            <v-card-text class="text-h5 py-2">
-                "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well."
-            </v-card-text>
-
-            <v-card-actions>
-                <v-list-item class="w-100">
-                    <template v-slot:prepend>
-                        <v-avatar
-                            color="grey-darken-3"
-                            :image="userInfo.avatar"
-                        ></v-avatar>
-                    </template>
-
-                    <v-list-item-title>{{ userInfo.realname }}</v-list-item-title>
-
-                    <v-list-item-subtitle>{{ userInfo.tel }}</v-list-item-subtitle>
-
-                    <template v-slot:append>
-                        <div class="justify-self-end">
-                            <v-icon class="me-1" icon="mdi-heart"></v-icon>
-                                <span class="subheading me-2">{{ userInfo.gender }}</span>
-                                <span class="me-1">·</span>
-                            <v-icon class="me-1" icon="mdi-share-variant"></v-icon>
-                            <span class="subheading">{{ userInfo.age }}</span>
-                        </div>
-                    </template>
-                </v-list-item>
-            </v-card-actions>
-        </v-card>
-    </div>
+            <PushToEditor :value="userInfo.tel" text="电话" />
+            &nbsp;/&nbsp;
+            <PushToEditor :value="userInfo.email" text="邮箱" />
+        </v-row>
+        <v-row
+            justify="center"
+            class="mt-5 d-flex align-center text-body-2 text-grey-lighten-1"
+        >
+            <PushToEditor :value="userInfo.age" text="年龄" />
+            &nbsp;/&nbsp;
+            <PushToEditor
+                :value="
+                    userInfo.gender === -1
+                        ? '未知'
+                        : userInfo.gender === 0
+                        ? '男'
+                        : '女'
+                "
+                text="性别"
+            />
+        </v-row>
+        <v-row
+            justify="center"
+            class="mt-5 d-flex align-center text-body-2 text-grey-lighten-1"
+        >
+            <PushToEditor :value="userInfo.height" text="身高" />
+            &nbsp;/&nbsp;
+            <PushToEditor :value="userInfo.weight" text="体重" />
+        </v-row>
+    </v-container>
 </template>
 
 <script setup lang="ts">
-import { notify } from '@/components/Notification';
-import { useAuthStore } from '@/store/auth';
-import { onMounted } from 'vue';
+import PushToEditor from './components/PushToEditor.vue'
+import defaultAvatar from '@/assets/images/default-avatar.svg'
+import { notify } from '@/components/Notification'
+import { useAuthStore } from '@/store/auth'
+import { onMounted } from 'vue'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router';
 
 const pinia = useAuthStore()
-const router = useRouter()
 
 const loading = ref<boolean>(false)
 
@@ -63,7 +61,7 @@ const userInfo = ref<any>({})
 
 async function loadData() {
     loading.value = true
-    try { 
+    try {
         if (await pinia.getUserInfo()) {
             userInfo.value = pinia.userInfo
             return
@@ -76,19 +74,21 @@ async function loadData() {
     }
 }
 
-
-// 返回首页
-const toDashBoard = () => {
-    router.push({ name: 'Dashboard' })
-}
-
+const breadcrumbs = [
+    {
+        title: '首页',
+        disabled: false,
+        href: '/dashboard'
+    },
+    {
+        title: '个人中心',
+        disabled: true
+    }
+]
 
 onMounted(() => {
     loadData()
 })
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

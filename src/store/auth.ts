@@ -10,21 +10,22 @@ import { notify } from '@/components/Notification'
 const storeName = 'Auth'
 
 type State = {
-    token: string;
-    userInfo: any;
+    token: string
+    userInfo: any
 }
 
 export const useAuthStore = defineStore({
     id: storeName,
     state: (): State => ({
         token: '',
-        userInfo: null,
+        userInfo: null
     }),
     getters: {
         isLogin(): boolean {
             return !!this.token
         },
         userInfoGetter(): any {
+            if (!this.userInfo) return {}
             return this.userInfo || {}
         }
     },
@@ -33,15 +34,15 @@ export const useAuthStore = defineStore({
         async login(params: PwdLoginParamsT | EmailLoginParamsT) {
             let res: null | ResponseT = null
             // 类型收窄
-            if("email" in params) {
+            if ('email' in params) {
                 res = await emailLogin(params)
             } else {
                 res = await login(params)
             }
 
-            const { code, data } = res;
+            const { code, data } = res
             if (code !== 0) return
-            
+
             this.token = data
 
             await this.getUserInfo()
