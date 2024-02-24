@@ -1,15 +1,12 @@
 <template>
-    <div class="register-page d-flex justify-center">
-        <v-card class="w-50 pa-6">
-            <RegisterForm />
-        </v-card>
-    </div>
+    <FormLayout>
+        <RegisterForm />
+    </FormLayout>
 </template>
 
 <script setup lang="ts">
-import RegisterForm from './components/RegisterForm.vue';
-
-
+import FormLayout from './components/FormLayout.vue'
+import RegisterForm from './components/RegisterForm.vue'
 </script>
 
 <style scoped>

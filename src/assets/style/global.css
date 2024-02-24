@@ -18,3 +18,36 @@
 .custom-notification .close-btn {
     font-size: 12px;
 }
+
+/* 路由切换过渡效果 */
+
+.page-enter-active,
+.page-leave-active {
+    transition: 600ms ease all;
+}
+
+.page-enter-from,
+.page-leave-to {
+    opacity: 0;
+}
+
+/* 上下晃动动画关键帧 */
+
+.kf-updown {
+    animation-name: updown;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: backwards;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes updown {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(5%);
+    }
+}

@@ -40,12 +40,26 @@
             @blur="v$.repassword.$touch"
         ></v-text-field>
 
-        <v-btn class="me-4" @click="submit">
-            注册
+        <v-btn
+            block
+            class="my-8"
+            color="blue"
+            size="large"
+            variant="tonal"
+            @click="submit"
+        >
+            创建账号
         </v-btn>
-        <v-btn @click="clear">
-            重置
-        </v-btn>
+
+        <v-card-text class="text-center" @click="toLogin">
+            <a
+                class="text-blue text-decoration-none"
+                href="javascript: void(0);"
+                rel="noopener noreferrer"
+            >
+                已有账号？去登录 <v-icon icon="mdi-chevron-right"></v-icon>
+            </a>
+        </v-card-text>
     </v-form>
 </template>
 
@@ -72,26 +86,35 @@ const rule = {
     realname: { required: helpers.withMessage('真实姓名不能为空', required) },
     repassword: {
         required: helpers.withMessage('确认密码不能为空', required),
-        sameAsPassword: helpers.withMessage('确认密码与密码不匹配', function (value: string, f: RegisterParamsT) {
-            return value === f.password
-        })
-    },
+        sameAsPassword: helpers.withMessage(
+            '确认密码与密码不匹配',
+            function (value: string, f: RegisterParamsT) {
+                return value === f.password
+            }
+        )
+    }
 }
 
-const { v$, form, clear, submit, getMsgList } = useFormValidate<RegisterParamsT>(initForm, rule, {
-    callback: async () => {
-        const res = await register(form.value)
-        if (res.code !== 0) {
-            console.log(res.msg)
-            return
-        }
-        router.push({ name: 'Login' })
-        notify('注册成功，自动跳转至登录页')
-    }
-})
+// 跳转至登录页
+const toLogin = () => {
+    router.push({ name: 'Login' })
+}
 
+const { v$, form, submit, getMsgList } = useFormValidate<RegisterParamsT>(
+    initForm,
+    rule,
+    {
+        callback: async () => {
+            const res = await register(form.value)
+            if (res.code !== 0) {
+                console.log(res.msg)
+                return
+            }
+            toLogin()
+            notify('注册成功，自动跳转至登录页')
+        }
+    }
+)
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

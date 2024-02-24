@@ -7,7 +7,6 @@
             </div>
         </template>
         <template v-slot:append>
-            <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
             <Settings />
         </template>
     </v-app-bar>
@@ -15,7 +14,7 @@
 
 <script setup lang="ts">
 import logo from '@/assets/logo.png'
-import Settings from './Settings.vue';
+import Settings from './Settings.vue'
 </script>
 
 <style scoped>
