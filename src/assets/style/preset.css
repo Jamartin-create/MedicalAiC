@@ -1,0 +1,24 @@
+/** 一些预设样式 */
+.preset-bg {
+    background-color: #f3f3f3 !important;
+}
+
+.preset-bg-light {
+    background-color: #ffffff !important;
+}
+
+.preset-bg-dark {
+    background-color: #0f1020 !important;
+}
+
+.preset-bg-orange {
+    background-color: #ffe6b7 !important;
+}
+
+.preset-bg-green {
+    background-color: #aff4c6 !important;
+}
+
+.preset-bg-gray {
+    background-color: #f1f1f1 !important;
+}
