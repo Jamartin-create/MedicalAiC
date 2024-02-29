@@ -1,5 +1,6 @@
 <template>
     <div class="chat-page-container">
+        <div class="chat-page-header py-4">Chat GPT 4.0</div>
         <div class="chat-msg-list-wrp" ref="chatListWrpRef">
             <template v-for="chat in chatList">
                 <div class="chat-message">

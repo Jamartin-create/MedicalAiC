@@ -1,8 +1,12 @@
 <template>
     <div class="page-wrp">
         <ChatList />
-        <div class="page-main">
-            <ChatPage />
+        <div class="d-flex justify-center h-100 px-4 py-2">
+            <v-sheet
+                class="preset-bg-light rounded w-100 h-100 d-flex justify-center"
+            >
+                <ChatPage />
+            </v-sheet>
         </div>
     </div>
 </template>

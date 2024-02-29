@@ -1,21 +1,29 @@
 <template>
-    <v-navigation-drawer :width="180">
-        <div class="w-100 pt-5 d-flex justify-center">
-            <v-btn append-icon="mdi-plus" @click="handleCreate">
-                创建新对话
-                <template v-slot:prepend>
-                    <v-img :height="25" :width="25" :src="DefaultAiAvatar" />
+    <v-navigation-drawer floating class="preset-bg px-4 py-2" :width="280">
+        <v-sheet class="h-100 pt-5 rounded">
+            <v-sheet class="w-100 d-flex justify-center">
+                <v-btn append-icon="mdi-plus" @click="handleCreate">
+                    创建新对话
+                    <template v-slot:prepend>
+                        <v-img
+                            :height="25"
+                            :width="25"
+                            :src="DefaultAiAvatar"
+                        />
+                    </template>
+                </v-btn>
+            </v-sheet>
+            <v-list class="w-100 mt-5 d-flex justify-center">
+                <template v-for="nav in navList" :key="nav.value">
+                    <v-btn
+                        class="preset-bg-gray w-75"
+                        @click="handleSelect(nav.uid)"
+                    >
+                        {{ nav.title || 'New Chat' }}
+                    </v-btn>
                 </template>
-            </v-btn>
-        </div>
-        <v-list @click:select="handleSelect">
-            <template v-for="nav in navList" :key="nav.value">
-                <v-list-item
-                    :title="nav.title || 'New Chat'"
-                    :value="nav.uid"
-                ></v-list-item>
-            </template>
-        </v-list>
+            </v-list>
+        </v-sheet>
     </v-navigation-drawer>
 </template>
 
@@ -35,9 +43,9 @@ const chatListInit = async () => {
     navList.value = data
 }
 
-const handleSelect = (e: any) => {
-    console.log('select---', e)
-    router.push({ name: 'Chat', params: { id: e.id } })
+const handleSelect = (uid: any) => {
+    console.log('select---', uid)
+    router.push({ name: 'Chat', params: { id: uid } })
 }
 
 const handleCreate = () => {
