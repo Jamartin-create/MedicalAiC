@@ -25,6 +25,9 @@
                     <v-btn rounded variant="text" @click="toEdit">
                         更新信息
                     </v-btn>
+                    <v-btn class="preset-bg-orange" rounded variant="text" @click="logout">
+                        退出登录
+                    </v-btn>
                 </div>
             </v-card-text>
         </v-card>
@@ -40,6 +43,8 @@ const pinia = useAuthStore()
 const router = useRouter()
 
 const toEdit = () => router.push({ name: 'UserEdit' })
+
+const logout = () => pinia.logout()
 </script>
 
 <style scoped></style>
