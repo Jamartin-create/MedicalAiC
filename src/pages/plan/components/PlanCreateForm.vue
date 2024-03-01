@@ -33,7 +33,6 @@
             <template v-for="item in timeTypeOptions">
                 <v-radio :label="item.name" :value="item.value"></v-radio>
             </template>
-            <v-radio label="养生" :value="1"></v-radio>
         </v-radio-group>
 
         
@@ -84,6 +83,7 @@ const rule = {
 
 const { v$, form, clear, submit, getMsgList } = useFormValidate<CreatePlanParamsT>(initForm, rule, {
     callback: async () => {
+        form.value.cycle += timeType.value
         const { code } = await createPlan(form.value)
         if (code !== 0) return
         notify('创建成功')

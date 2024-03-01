@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer floating class="preset-bg px-4 py-2" :width="280">
+    <v-navigation-drawer floating class="preset-bg pl-4 pb-4" :width="280">
         <v-sheet class="h-100 pt-5 rounded">
             <v-sheet class="w-100 d-flex justify-center">
                 <v-btn append-icon="mdi-plus" @click="handleCreate">

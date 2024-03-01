@@ -17,6 +17,7 @@
                     <v-select
                         v-model="form.gender"
                         class="mb-5"
+                        :error-messages="getMsgList('gender')"
                         :items="[
                             { label: '男', value: 0 },
                             { label: '女', value: 1 },
@@ -27,6 +28,8 @@
                         label="性别"
                         hint="提供您的性别有助于我们为您提供更加个性化和适当的医疗建议~"
                         persistent-hint
+                        @input="v$.gender.$touch"
+                        @blur="v$.gender.$touch"
                     ></v-select>
 
                     <v-text-field
@@ -199,7 +202,9 @@ const { v$, form, submit, getMsgList } = useFormValidate<UpdateUserInfoParamsT>(
     rule,
     {
         callback: async () => {
+            console.log('--1---1')
             const { code } = await editInfo(form.value)
+            console.log(code)
             if (code !== 0) return
             notify('更新成功')
             setTimeout(() => {
