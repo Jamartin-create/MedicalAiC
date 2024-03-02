@@ -1,43 +1,37 @@
 <template>
-  <div class="case-list-wrp d-flex">
-    
-    <v-btn @click="toCreate">新建病例</v-btn>
-
-    <template v-for="item in list" :key="item.uid">
-      <CaseCard :item="item" />
-    </template>
-  </div>
+  <v-layout class="home-layout-container w-100 d-flex">
+    <v-sheet class="list-layout-wrp bg-transparent ml-4 mr-2 mb-4">
+      <CaseList @change="handleChange" />
+    </v-sheet>
+    <v-sheet class="bg-transparent flex-1-1 mr-4 ml-2 mb-4">
+      <CaseDetail :caseid="caseid" />
+    </v-sheet>
+  </v-layout>
 </template>
 
 <script setup lang="ts">
-import CaseCard from "./components/CaseCard.vue";
-import type { PageParamsT } from '@/api/types'
-import { ref, onMounted } from "vue";
-import { getCaseList } from "@/api/case";
-import { useRouter } from "vue-router";
+import { ref } from "vue";
+import CaseList from './components/CaseList.vue';
+import CaseDetail from './components/CaseDetail.vue';
 
-const router = useRouter()
+const caseid = ref<string>('')
 
-const list = ref<any[]>([]);
-
-const pageParams = ref<PageParamsT>({
-  pageIndex: 0,
-  pageSize: 10
-})
-
-const loadData = async () => {
-  const { code, data } = await getCaseList(pageParams.value);
-  if (code !== 0) return;
-  list.value = data.list;
-};
-
-const toCreate = () => {
-  router.push({ name: 'CaseCreate' })
+// 切换 case
+const handleChange = (uid: string) => {
+  caseid.value = uid
 }
 
-onMounted(() => {
-  loadData();
-});
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+$createFormWidth: 450px;
+
+.list-layout-wrp {
+    width: $createFormWidth;
+    min-width: $createFormWidth;
+}
+
+.home-layout-container {
+    height: calc(100vh - 110px);
+}
+</style>

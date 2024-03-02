@@ -1,10 +1,14 @@
 import { Request } from "@/utils/request";
-import { PageParamsT } from "./types";
+import { PageParamsT, PageResultT } from "./types";
 
 const prefix = '/case/v1'
 
 export type CaseIdT = {
     uid: string;
+}
+
+export type CaseIdFk = {
+    caseid: string;
 }
 
 export type CreateCaseParamsT = {
@@ -16,7 +20,12 @@ export type CreateCaseParamsT = {
 
 // 创建病例
 export function createCase(params: CreateCaseParamsT) {
-    return Request.post(`${prefix}/mdCase/create`, params)
+    return Request.post<any>(`${prefix}/mdCase/create`, params)
+}
+
+// 分析病例
+export function genAnalize(params: CaseIdFk, callback: (string) => void) {
+    return Request.streamFetch(`${prefix}/mdCase/genAnalize`, params, 'post', callback)
 }
 
 export type FeedBackCaseParamsT = {
@@ -36,5 +45,5 @@ export function getCaseDetail(params: CaseIdT) {
 
 // 获取病例列表
 export function getCaseList(params: PageParamsT) {
-    return Request.get(`${prefix}/mdCase/list`, params)
+    return Request.get<PageResultT>(`${prefix}/mdCase/list`, params)
 }
