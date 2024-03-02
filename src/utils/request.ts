@@ -12,14 +12,14 @@ const eventStreamDataTrans = (es: string) => {
 }
 
 
-export type ResponseT = {
+export type ResponseT<T> = {
     code: number;
     msg: string;
-    data: any;
+    data: T;
 }
 
 export class Request {
-  static get = (url: string, params: any): Promise<ResponseT> => {
+  static get = <T>(url: string, params: any): Promise<ResponseT<T>> => {
     return new Promise((reso, reje) => {
       axios
         .get(url, { params: params })
@@ -31,7 +31,7 @@ export class Request {
         });
     });
   };
-  static post = (url: string, params: any, headers?: AxiosRequestConfig): Promise<ResponseT> => {
+  static post = <T>(url: string, params: any, headers?: AxiosRequestConfig): Promise<ResponseT<T>> => {
     return new Promise((reso, reje) => {
       axios
         .post(url, params, headers)
@@ -43,7 +43,7 @@ export class Request {
         });
     });
   };
-  static delete = (url: string, params: any): Promise<ResponseT> => {
+  static delete = <T>(url: string, params: any): Promise<ResponseT<T>> => {
     return new Promise((reso, reje) => {
       axios
         .delete(url, { params: params })
@@ -55,7 +55,7 @@ export class Request {
         });
     });
   };
-  static put = (url: string, params: any): Promise<ResponseT> => {
+  static put = <T>(url: string, params: any): Promise<ResponseT<T>> => {
     return new Promise((reso, reje) => {
       axios
         .put(url, params)

@@ -13,10 +13,10 @@
                     </template>
                 </v-btn>
             </v-sheet>
-            <v-list class="w-100 mt-5 d-flex justify-center">
+            <v-list class="w-100 mt-5 d-flex flex-column align-center">
                 <template v-for="nav in navList" :key="nav.value">
                     <v-btn
-                        class="preset-bg-gray w-75"
+                        class="preset-bg-gray w-75 my-2"
                         @click="handleSelect(nav.uid)"
                     >
                         {{ nav.title || 'New Chat' }}

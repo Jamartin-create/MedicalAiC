@@ -6,7 +6,7 @@ export type ChatIdT = {
 
 // 新建对话
 export function createChat() {
-    return Request.post('/chat/v1/record/create', {})
+    return Request.post<any>('/chat/v1/record/create', {})
 }
 
 export type KeepOnParamsT = {
@@ -25,15 +25,15 @@ export function leaveChat(params: ChatIdT) {
 
 // 获取对话详情
 export function getChatDetail(params: ChatIdT) {
-    return Request.get('/chat/v1/record/detail', params)
+    return Request.get<any>('/chat/v1/record/detail', params)
 }
 
 // 获取对话列表
 export function getChatList() {
-    return Request.get('/chat/v1/record/list', {})
+    return Request.get<any>('/chat/v1/record/list', {})
 }
 
 // 获取历史的新对话
 export function getNewChat() {
-    return Request.get('/chat/v1/record/lastChat', {})
+    return Request.get<any>('/chat/v1/record/lastChat', {})
 }

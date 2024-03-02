@@ -3,34 +3,7 @@
         <div class="chat-page-header py-4">Chat GPT 4.0</div>
         <div class="chat-msg-list-wrp" ref="chatListWrpRef">
             <template v-for="chat in chatList">
-                <div class="chat-message">
-                    <div class="chat-message-avatar">
-                        <v-avatar size="30">
-                            <template v-if="chat.role === 'assistant'">
-                                <v-img :src="DefaultAiAvatar" />
-                            </template>
-                            <template v-else>
-                                <v-img
-                                    :src="
-                                        pinia.userInfoGetter.avatar ||
-                                        DefaultAvatar
-                                    "
-                                />
-                            </template>
-                        </v-avatar>
-                        <div class="chat-message-name">
-                            {{ chat.role === 'assistant' ? '小助手' : '你' }}
-                        </div>
-                    </div>
-                    <div class="chat-message-content">
-                        <template v-if="chat.role === 'assistant'">
-                            <ChatMessageCard :content="chat.content" />
-                        </template>
-                        <template v-else>
-                            {{ chat.content }}
-                        </template>
-                    </div>
-                </div>
+                <CustomMessageCard :role="chat.role" :content="chat.content" />
             </template>
             <div class="msg-generate-loading">
                 <v-progress-circular
@@ -68,16 +41,13 @@
 </template>
 
 <script setup lang="ts">
-import DefaultAiAvatar from '@/assets/images/default-robots-avatar.svg'
-import DefaultAvatar from '@/assets/images/default-avatar.svg'
-import ChatMessageCard from './ChatMessageCard.vue'
 import { getNewChat, createChat, keepOnChat, getChatDetail } from '@/api/chat'
-import { notify } from '@/components/Notification'
+import CustomMessageCard from '@/components/CustomMessageCard.vue'
 import { watch, nextTick, ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { useAuthStore } from '@/store/auth'
+import { notify } from '@/components/Notification'
 import { Typewriter } from '@/utils/typeingWriter'
 import { useScroll } from '@vueuse/core'
+import { useRoute } from 'vue-router'
 
 // 滚动的元素，滚动至底部
 const chatListWrpRef = ref()
@@ -88,7 +58,6 @@ const scrollToBottom = () => {
     })
 }
 
-const pinia = useAuthStore()
 
 const chatInfo = ref<any>(null)
 
@@ -196,26 +165,6 @@ onMounted(() => {
     .chat-msg-list-wrp {
         flex: 1;
         overflow-y: scroll;
-
-        .chat-message {
-            margin-top: 10px;
-            margin-bottom: 30px;
-
-            .chat-message-avatar {
-                display: flex;
-                gap: 8px;
-                align-items: center;
-
-                .chat-message-name {
-                    font-size: 14px;
-                    font-weight: bold;
-                }
-            }
-
-            .chat-message-content {
-                padding-left: 38px;
-            }
-        }
 
         .msg-generate-loading {
             width: 100%;
