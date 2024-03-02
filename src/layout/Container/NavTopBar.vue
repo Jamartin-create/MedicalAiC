@@ -4,11 +4,11 @@
             class="preset-bg-light w-auto py-0 px-0 rounded-pill d-flex align-center justify-center"
         >
             <div class="w-auto h-auto d-flex">
-                <template v-for="tab in tabs" :key="tab.name">
+                <template v-for="tab in items" :key="tab.name">
                     <div
                         class="cursor-pointer px-10 py-4 rounded-pill text-body-2 font-weight-regular"
-                        :class="{ 'preset-bg-dark text-white': active === tab.name }"
-                        @click="handleChangeTab(tab)"
+                        :class="{ 'preset-bg-dark text-white': tab.active }"
+                        @click="handleChangeTab(tab.value)"
                     >
                         {{ tab.label }}
                     </div>
@@ -38,7 +38,7 @@
 import logo from '@/assets/logo.png'
 import Settings from './Settings.vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import useCreateTabs from '@/hooks/useCreateTabs'
 
 const route = useRoute()
 const router = useRouter()
@@ -46,21 +46,23 @@ const router = useRouter()
 type TabT = {
     label: string
     path: string
-    name: string
+    value: string
 }
 
 const tabs: TabT[] = [
-    { label: '工作台', path: '/dashboard/home', name: 'Home' },
-    { label: '你的助手', path: '/dashboard/chat/create', name: 'Chat' },
-    { label: '健康档案', path: '/dashboard/case/list', name: 'CaseList' }
+    { label: '工作台', path: '/dashboard/home', value: 'Home' },
+    { label: '你的助手', path: '/dashboard/chat/create', value: 'Chat' },
+    { label: '健康档案', path: '/dashboard/case/list', value: 'CaseList' }
 ]
 
-const active = ref<string>(route.name as string)
+// 利用 hook 获取需要的列表 & 一些公用事件
+const { items, handleChangeTab } = useCreateTabs<TabT>(tabs, {
+    defaultActive: route.name as string,
+    callback: (item: TabT) => {
+        router.push({ path: item.path })
+    }
+})
 
-const handleChangeTab = (tab: TabT) => {
-    router.push({ path: tab.path })
-    active.value = tab.name
-}
 </script>
 
 <style scoped>
