@@ -69,7 +69,7 @@ const loadData = async () => {
 
 // 返回计划列表
 const goBack = () => {
-    router.push({ name: "PlanList" })
+    router.push({ name: "Home" })
 }
 
 // 加载打卡记录

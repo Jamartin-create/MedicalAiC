@@ -1,4 +1,5 @@
 import { Request } from "@/utils/request";
+import { PageParamsT, PageResultT } from "./types";
 
 const prefix = '/plan/v1'
 
@@ -23,7 +24,12 @@ export type CreatePlanParamsT = {
 
 // 创建计划
 export function createPlan(params: CreatePlanParamsT) {
-    return Request.post(`${prefix}/plan/`, params)
+    return Request.post<any>(`${prefix}/plan/`, params)
+}
+
+// 生成计划大纲
+export function genOverwrite(params: PlanIdFkT, callback: (string) => void) {
+    return Request.streamFetch(`${prefix}/plan/overview`, params, 'post', callback)
 }
 
 // 完成计划
@@ -31,9 +37,13 @@ export function completePlan(params: UidT) {
     return Request.put(`${prefix}/plan/complete`, params)
 }
 
+export type PlanListQuery = {
+    status: number // -1=全部；0=进行中；1=已结束；2=中断
+}
+
 // 获取计划列表
-export function getPlanList() {
-    return Request.get(`${prefix}/plan/list`, {})
+export function getPlanList(params: PlanListQuery & PageParamsT) {
+    return Request.get<PageResultT>(`${prefix}/plan/list`, params)
 }
 
 // 获取计划复盘
@@ -47,7 +57,7 @@ export function getPlanReview(params: PlanIdFkT) {
 
 // 获取打卡记录列表
 export function getRecordList(params: PlanIdFkT) {
-    return Request.get(`${prefix}/record/list`, params)
+    return Request.get<any>(`${prefix}/record/list`, params)
 }
 
 // 获取打卡记录详情

@@ -72,12 +72,6 @@ const routes: RouteRecordRaw[] = [
         meta: { title: 'MC - 病例详情', isAuth: true }
       },
       {
-        path: "/dashboard/plan/list",
-        name: "PlanList",
-        component: () => import('@/pages/plan/List.vue'),
-        meta: { title: 'MC - 计划列表', isAuth: true }
-      },
-      {
         path: "/dashboard/plan/create",
         name: "PlanCreate",
         component: () => import('@/pages/plan/Create.vue'),

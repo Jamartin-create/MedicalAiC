@@ -65,7 +65,7 @@ const { v$, form, clear, submit, getMsgList } = useFormValidate<CreateRecordPara
         const { code } = await createRecord(form.value)
         if (code !== 0) return
         notify('打卡成功')
-        router.push({ name: 'PlanList' })
+        router.push({ name: 'Home' })
     }
 })
 </script>
