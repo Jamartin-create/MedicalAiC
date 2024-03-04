@@ -1,10 +1,10 @@
 <template>
     <v-layout class="home-layout-container w-100 d-flex">
         <v-sheet class="layout-left bg-transparent d-flex flex-column">
-            <v-sheet class="bg-transparent flex-1-1 ml-4 mr-2 mb-4">
+            <v-sheet class="bg-transparent h-50 ml-4 mr-2 mb-4">
                 <LeftPanelTodo />
             </v-sheet>
-            <v-sheet class="bg-transparent flex-1-1 ml-4 mr-2 mb-4">
+            <v-sheet class="bg-transparent h-50 ml-4 mr-2 mb-4">
                 <LeftPanelAnalize />
             </v-sheet>
         </v-sheet>

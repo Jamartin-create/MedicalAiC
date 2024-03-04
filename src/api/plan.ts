@@ -11,6 +11,10 @@ export type PlanIdFkT = {
     planid: string
 }
 
+export type RecordIdFkT = {
+    recordid: string
+}
+
 // 获取计划详情
 export function getPlanDetail(params: UidT) {
     return Request.get(`${prefix}/plan/`, params)
@@ -76,5 +80,27 @@ export type CreateRecordParamsT = {
 
 // 打卡
 export function createRecord(params: CreateRecordParamsT) {
-    return Request.post(`${prefix}/record/`, params)
+    return Request.post<any>(`${prefix}/record/`, params)
+}
+
+// 对打卡记录进行分析
+export function genRecordAna(params: RecordIdFkT, callback: (string) => void) {
+    return Request.streamFetch(
+        `${prefix}/record/genAdvice`,
+        params,
+        'post',
+        callback
+    )
+}
+
+// --- todo ---
+
+// 获取 todo 列表（今日）
+export function getTodoList() {
+    return Request.get<any>(`${prefix}/plan/todolist`, {})
+}
+
+// 获取 check 列表（今日）
+export function getCheckList() {
+    return Request.get<any>(`${prefix}/plan/checklist`, {})
 }
