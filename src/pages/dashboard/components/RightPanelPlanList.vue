@@ -24,9 +24,13 @@
                     class="mb-5"
                     :class="index % 2 === 0 ? 'preset-bg-orange' : 'preset-bg-green'"
                 >
-                    <v-card-title>占位标题</v-card-title>
-                    <v-card-subtitle> {{ item.cycle }} - {{ item.status }} - {{ item.createdAt }} </v-card-subtitle>
-                    <v-card-text> {{ item.type }} - {{ item.target }} </v-card-text>
+                    <v-card-title> {{ item.title }} </v-card-title>
+                    <v-card-subtitle> {{ item.cycle }} - {{ planStatus(item.status) }} - {{ formatTime(item.createdAt) }} </v-card-subtitle>
+                    <v-card-text> {{ planType(item.type) }} - {{ item.target }} </v-card-text>
+                    <v-card-actions class="d-flex justify-center">
+                        <v-btn>打卡记录</v-btn>
+                        <v-btn>分析报告</v-btn>
+                    </v-card-actions>
                 </v-card>
             </template>
         </v-virtual-scroll>
@@ -44,6 +48,8 @@ import { getPlanList } from '@/api/plan';
 import { onMounted, ref } from 'vue';
 import router from '@/router';
 import { PageParamsT, PageResultT } from '@/api/types';
+import useDataDir from '@/hooks/useDataDir';
+import { formatTime } from '@/utils/tools'
 
 // 筛选 tab 相关
 type TabT = {
@@ -97,10 +103,6 @@ const loadData = async (pageParams: PageParamsT) => {
 
 // 触底加载
 const { pageParams, resetPage, handleScroll } = useListScroll({
-    pageOptions: {
-        pageIndex: 0,
-        pageSize: 4
-    },
     callback: (pageParams: PageParamsT) => {
         // 查一下 flag 看是否还有后续
         if (!pageData.value?.hasNext) return
@@ -112,6 +114,10 @@ onMounted(() => {
     loadData(pageParams.value)
     pageParams.value.pageIndex += 1
 })
+
+// 数据字典
+const { getValue: planStatus } = useDataDir('planStatus')
+const { getValue: planType } = useDataDir('planType')
 
 // 零散逻辑
 
