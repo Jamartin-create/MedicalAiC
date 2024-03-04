@@ -1,34 +1,36 @@
-import useVuelidate, { Validation } from "@vuelidate/core";
-import { Ref, ref } from "vue";
-
+import useVuelidate, { Validation } from '@vuelidate/core'
+import { Ref, ref } from 'vue'
 
 type MsgsT = string | readonly string[] | null | undefined
 
 type ValidateT<T> = Ref<Record<keyof T, Validation<any, T>>>
 
-
 interface ValidateType<T> {
-    form: Ref<T>;
-    v$: ValidateT<T>;
-    clear: () => void;
-    submit: () => void;
-    getMsgList: (key: keyof T) => MsgsT;
+    form: Ref<T>
+    v$: ValidateT<T>
+    clear: () => void
+    submit: () => void
+    getMsgList: (key: keyof T) => MsgsT
 }
 
 interface ValidateOption {
-    callback: () => void;
+    callback: () => void
 }
 
 // 表单验证钩子
-export function useFormValidate<T>(initForm: T, rules: any, options: ValidateOption): ValidateType<T> {
-    const form = ref<T>({...initForm}) as Ref<T>
+export function useFormValidate<T>(
+    initForm: T,
+    rules: any,
+    options: ValidateOption
+): ValidateType<T> {
+    const form = ref<T>({ ...initForm }) as Ref<T>
 
     const v = useVuelidate(rules, form)
 
     const v$ = v as ValidateT<T>
 
     const clear = () => {
-        Object.keys(form.value!).forEach((key) => {
+        Object.keys(form.value!).forEach(key => {
             form.value[key as keyof T] = initForm[key as keyof T]
         })
         v.value.$reset()
@@ -48,7 +50,7 @@ export function useFormValidate<T>(initForm: T, rules: any, options: ValidateOpt
     return {
         v$,
         form,
-        clear, 
+        clear,
         submit,
         getMsgList
     }

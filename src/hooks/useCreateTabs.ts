@@ -1,4 +1,4 @@
-import { ref } from "vue"
+import { ref } from 'vue'
 
 type KeyT = {
     label: string
@@ -25,24 +25,29 @@ type ExportTabT<T> = {
     active: boolean
 }
 
-export default function useCreateTabs<T>(tabItems: T[], options: OptionsT, keys: KeyT = { ...defaultKeys }) {
-
+export default function useCreateTabs<T>(
+    tabItems: T[],
+    options: OptionsT,
+    keys: KeyT = { ...defaultKeys }
+) {
     // 先处理形参
     const { label, value } = keys
     const { callback, defaultActive } = options
 
     // 搞个默认值
     const active = ref<string | number>(tabItems[0][value])
-    if(defaultActive) active.value = defaultActive
+    if (defaultActive) active.value = defaultActive
 
-    const items = ref<ExportTabT<T>[]>(tabItems.map(item => {
-        return {
-            label: item[label],
-            value: item[value],
-            meta: item,
-            active: item[value] === active.value
-        }
-    }))
+    const items = ref<ExportTabT<T>[]>(
+        tabItems.map(item => {
+            return {
+                label: item[label],
+                value: item[value],
+                meta: item,
+                active: item[value] === active.value
+            }
+        })
+    )
 
     // 处理选中
     function handleChangeTab(tabValue: string | number) {
@@ -50,8 +55,7 @@ export default function useCreateTabs<T>(tabItems: T[], options: OptionsT, keys:
         let flag2 = false
         let actMeta: any = null
         for (const item of items.value) {
-            console.log(item.value, tabValue, active.value)
-            if (flag1 && flag2) break;
+            if (flag1 && flag2) break
             // 取消之前的选中
             if (item.value === active.value) {
                 item.active = false
@@ -66,7 +70,6 @@ export default function useCreateTabs<T>(tabItems: T[], options: OptionsT, keys:
         }
         active.value = tabValue
         if (callback && actMeta) callback(actMeta)
-        
     }
 
     return {

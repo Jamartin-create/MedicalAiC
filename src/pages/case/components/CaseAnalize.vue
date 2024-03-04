@@ -1,5 +1,7 @@
 <template>
-    <v-sheet class="ana-panel-wrp preset-bg-light w-100 h-100 rounded-xl px-2 py-2 d-flex justify-center">
+    <v-sheet
+        class="ana-panel-wrp preset-bg-light w-100 h-100 rounded-xl px-2 py-2 d-flex justify-center"
+    >
         <v-sheet class="w-75 py-6" v-if="caseid">
             <CustomMessageCard role="assistant" :content="text" />
         </v-sheet>
@@ -33,11 +35,9 @@ const handleGenOverwrite = async (caseid: string) => {
 
     try {
         typer.start()
-        await genAnalize({ caseid },
-            (chunk: string) => {
-                typer.add(chunk)
-            }
-        )
+        await genAnalize({ caseid }, (chunk: string) => {
+            typer.add(chunk)
+        })
     } catch (e) {
         console.log(e)
     } finally {
@@ -46,9 +46,12 @@ const handleGenOverwrite = async (caseid: string) => {
     }
 }
 
-watch(() => props.caseid, (n) => {
-    handleGenOverwrite(n)
-})
+watch(
+    () => props.caseid,
+    n => {
+        handleGenOverwrite(n)
+    }
+)
 </script>
 
 <style scoped>

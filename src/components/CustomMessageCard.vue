@@ -8,10 +8,7 @@
                     </template>
                     <template v-else>
                         <v-img
-                            :src="
-                                pinia.userInfoGetter.avatar ||
-                                DefaultAvatar
-                            "
+                            :src="pinia.userInfoGetter.avatar || DefaultAvatar"
                         />
                     </template>
                 </v-avatar>
@@ -36,13 +33,11 @@ import CustomMessageContentCard from '@/components/CustomMessageContentCard.vue'
 import DefaultAiAvatar from '@/assets/images/default-robots-avatar.svg'
 import DefaultAvatar from '@/assets/images/default-avatar.svg'
 import { MessageT } from '@/api/types'
-import { useAuthStore } from '@/store/auth';
+import { useAuthStore } from '@/store/auth'
 
 const pinia = useAuthStore()
 
-
 defineProps<MessageT>()
-
 </script>
 
 <style scoped lang="scss">

@@ -1,15 +1,18 @@
 /** @description 数据字典，用于对比 code 获取中文 */
 
-import { ref } from "vue"
+import { ref } from 'vue'
 
-export type DataDirTypeT = 'caseSituation' | 'caseFeedBackStatus' | 'planType' | 'planStatus'
+export type DataDirTypeT =
+    | 'caseSituation'
+    | 'caseFeedBackStatus'
+    | 'planType'
+    | 'planStatus'
 
 export type DataDirT = {
     [key in number]: string
 }
 
 export default function useDataDir(type: DataDirTypeT) {
-
     const dataDir = ref<DataDirT>({
         0: '正常',
         1: '不正常'

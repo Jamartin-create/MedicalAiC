@@ -25,7 +25,12 @@
                     <v-btn rounded variant="text" @click="toEdit">
                         更新信息
                     </v-btn>
-                    <v-btn class="preset-bg-orange" rounded variant="text" @click="logout">
+                    <v-btn
+                        class="preset-bg-orange"
+                        rounded
+                        variant="text"
+                        @click="logout"
+                    >
                         退出登录
                     </v-btn>
                 </div>

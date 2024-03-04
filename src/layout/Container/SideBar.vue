@@ -9,13 +9,22 @@
     >
         <v-list density="compact" nav @click:select="handleSelect">
             <template v-for="nav in navList" :key="nav.value">
-                <v-list-item :prepend-icon="nav.preIcon" :title="nav.title" :value="nav.value"></v-list-item>
+                <v-list-item
+                    :prepend-icon="nav.preIcon"
+                    :title="nav.title"
+                    :value="nav.value"
+                ></v-list-item>
             </template>
         </v-list>
         <template #append>
             <v-list-item nav>
                 <template v-slot:prepend>
-                    <v-btn @click="logout" v-if="!rail" prepend-icon="mdi-logout">退出登录</v-btn>
+                    <v-btn
+                        @click="logout"
+                        v-if="!rail"
+                        prepend-icon="mdi-logout"
+                        >退出登录</v-btn
+                    >
                 </template>
                 <template v-slot:append>
                     <v-btn
@@ -30,10 +39,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { navList } from '../config';
-import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/store/auth';
+import { ref } from 'vue'
+import { navList } from '../config'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/store/auth'
 
 const router = useRouter()
 const pinia = useAuthStore()
@@ -48,6 +57,4 @@ const handleSelect = (a: any) => {
 const logout = () => pinia.logout()
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -58,7 +58,6 @@ const scrollToBottom = () => {
     })
 }
 
-
 const chatInfo = ref<any>(null)
 
 const chatList = ref<any[]>([])

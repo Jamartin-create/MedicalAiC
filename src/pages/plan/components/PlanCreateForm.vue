@@ -2,12 +2,17 @@
     <v-sheet class="preset-bg-light w-100 h-100 px-4 py-2 rounded-xl">
         <CustomHead title="创建计划">
             <template #append>
-                <v-btn class="preset-bg" size="small" icon="mdi-reply" @click="back" />
+                <v-btn
+                    class="preset-bg"
+                    size="small"
+                    icon="mdi-reply"
+                    @click="back"
+                />
             </template>
         </CustomHead>
         <v-form class="w-100" :disabled="formdisabled">
             <v-radio-group
-                inline 
+                inline
                 required
                 label="计划类型"
                 :error-messages="getMsgList('type')"
@@ -28,9 +33,8 @@
                 @blur="v$.target.$touch"
             />
 
-
             <v-radio-group
-                inline 
+                inline
                 required
                 label="周期单位"
                 v-model:model-value="timeType"
@@ -39,7 +43,6 @@
                     <v-radio :label="item.name" :value="item.value"></v-radio>
                 </template>
             </v-radio-group>
-
 
             <v-text-field
                 label="周期"
@@ -53,9 +56,7 @@
                 <v-btn class="me-4" :disabled="formdisabled" @click="submit">
                     创建
                 </v-btn>
-                <v-btn :disabled="formdisabled" @click="clear">
-                    重置
-                </v-btn>
+                <v-btn :disabled="formdisabled" @click="clear"> 重置 </v-btn>
             </v-sheet>
         </v-form>
     </v-sheet>
@@ -65,10 +66,10 @@
 import { CreatePlanParamsT, createPlan } from '@/api/plan'
 import { helpers, required } from '@vuelidate/validators'
 import { useFormValidate } from '@/hooks/useValidate'
-import CustomHead from '@/components/CustomHead.vue';
-import { notify } from '@/components/Notification';
+import CustomHead from '@/components/CustomHead.vue'
+import { notify } from '@/components/Notification'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
 const emits = defineEmits(['analize'])
 const router = useRouter()
@@ -95,21 +96,21 @@ const rule = {
 
 const formdisabled = ref<boolean>(false)
 
-const { v$, form, clear, submit, getMsgList } = useFormValidate<CreatePlanParamsT>(initForm, rule, {
-    callback: async () => {
-        form.value.cycle += timeType.value
-        const { code, data } = await createPlan(form.value)
-        if (code !== 0) return
-        notify('创建成功，即将开始分析')
-        formdisabled.value = true
-        emits('analize', data.uid)
-    }
-})
+const { v$, form, clear, submit, getMsgList } =
+    useFormValidate<CreatePlanParamsT>(initForm, rule, {
+        callback: async () => {
+            form.value.cycle += timeType.value
+            const { code, data } = await createPlan(form.value)
+            if (code !== 0) return
+            notify('创建成功，即将开始分析')
+            formdisabled.value = true
+            emits('analize', data.uid)
+        }
+    })
 
 // 其他逻辑
 
 const back = () => {
-    router.push({ name: "Home" })
+    router.push({ name: 'Home' })
 }
-
 </script>

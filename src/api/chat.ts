@@ -1,7 +1,7 @@
-import { Request } from "@/utils/request";
+import { Request } from '@/utils/request'
 
 export type ChatIdT = {
-    uid: string;
+    uid: string
 }
 
 // 新建对话
@@ -10,7 +10,7 @@ export function createChat() {
 }
 
 export type KeepOnParamsT = {
-    content: string; // 聊天内容
+    content: string // 聊天内容
 } & ChatIdT
 
 // 续写对话

@@ -16,9 +16,8 @@
 </template>
 
 <script setup lang="ts">
-import { getCaseDetail } from '@/api/case';
-import { watch, ref } from 'vue';
-
+import { getCaseDetail } from '@/api/case'
+import { watch, ref } from 'vue'
 
 type PropsT = {
     caseid: string
@@ -34,11 +33,12 @@ const loadData = async () => {
     detail.value = data
 }
 
-watch(() => props.caseid, () => {
-    loadData()
-})
+watch(
+    () => props.caseid,
+    () => {
+        loadData()
+    }
+)
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

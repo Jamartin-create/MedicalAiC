@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 type PropsT = {
-    title: string;
+    title: string
 }
 
 defineProps<PropsT>()

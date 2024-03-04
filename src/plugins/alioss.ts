@@ -1,7 +1,6 @@
-import { getAliOssSTS } from "@/api/upload";
-import { notify } from "@/components/Notification";
-import OSS from "ali-oss";
-
+import { getAliOssSTS } from '@/api/upload'
+import { notify } from '@/components/Notification'
+import OSS from 'ali-oss'
 
 // 唯一路由
 export class AliOssClient {
@@ -11,7 +10,7 @@ export class AliOssClient {
             const { code, data } = await getAliOssSTS()
             if (code !== 0) {
                 notify('获取存储权限失败')
-                throw new Error("获取存储权限失败")
+                throw new Error('获取存储权限失败')
             }
             AliOssClient.client = new OSS({
                 region: 'oss-cn-beijing',
@@ -32,5 +31,3 @@ export class AliOssClient {
         return AliOssClient.client
     }
 }
-
-  

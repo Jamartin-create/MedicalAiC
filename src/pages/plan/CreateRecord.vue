@@ -5,9 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import RecordCreateForm from './components/RecordCreateForm.vue';
+import RecordCreateForm from './components/RecordCreateForm.vue'
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

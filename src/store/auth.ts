@@ -32,7 +32,7 @@ export const useAuthStore = defineStore({
     actions: {
         // 登录
         async login(params: PwdLoginParamsT | EmailLoginParamsT) {
-            let res: null | ResponseT = null
+            let res: null | ResponseT<any> = null
             // 类型收窄
             if ('email' in params) {
                 res = await emailLogin(params)

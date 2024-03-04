@@ -10,10 +10,10 @@ pinia.use(piniaPluginPre)
  * @returns persist
  */
 export function piniaPersistConfig(key: string) {
-  return {
-    key,
-    storage: window.localStorage
-  }
+    return {
+        key,
+        storage: window.localStorage
+    }
 }
 
 export default pinia

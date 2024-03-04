@@ -10,9 +10,9 @@
 </template>
 
 <script setup lang="ts">
-import PlanCreateForm from './components/PlanCreateForm.vue';
-import PlanCreateOvAnaPanel from './components/PlanCreateOvAnaPanel.vue';
-import { ref } from 'vue';
+import PlanCreateForm from './components/PlanCreateForm.vue'
+import PlanCreateOvAnaPanel from './components/PlanCreateOvAnaPanel.vue'
+import { ref } from 'vue'
 
 const planid = ref<string>('')
 

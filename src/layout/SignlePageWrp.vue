@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import NavTopBar from './Container/NavTopBar.vue';
-import { RouterView } from 'vue-router';
-
+import NavTopBar from './Container/NavTopBar.vue'
+import { RouterView } from 'vue-router'
 </script>
