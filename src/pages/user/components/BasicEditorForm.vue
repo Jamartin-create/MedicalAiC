@@ -132,10 +132,7 @@ import { notify } from '@/components/Notification'
 import { useAuthStore } from '@/store/auth'
 import { upload } from '@/utils/upload'
 import { editInfo } from '@/api/auth'
-import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-
-const router = useRouter()
 
 const pinia = useAuthStore()
 
@@ -202,14 +199,10 @@ const { v$, form, submit, getMsgList } = useFormValidate<UpdateUserInfoParamsT>(
     rule,
     {
         callback: async () => {
-            console.log('--1---1')
             const { code } = await editInfo(form.value)
             console.log(code)
             if (code !== 0) return
             notify('更新成功')
-            setTimeout(() => {
-                router.push({ name: 'UserDetail' })
-            }, 600)
         }
     }
 )

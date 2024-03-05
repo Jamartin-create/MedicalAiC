@@ -57,31 +57,19 @@ const routes: RouteRecordRaw[] = [
                 path: '/dashboard/case/list',
                 name: 'CaseList',
                 component: () => import('@/pages/case/List.vue'),
-                meta: { title: 'MC - 病例列表', isAuth: true }
+                meta: { title: 'MC - 档案列表', isAuth: true }
             },
             {
                 path: '/dashboard/case/create',
                 name: 'CaseCreate',
                 component: () => import('@/pages/case/Create.vue'),
-                meta: { title: 'MC - 创建病例', isAuth: true }
-            },
-            {
-                path: '/dashboard/case/detail',
-                name: 'CaseDetail',
-                component: () => import('@/pages/case/Detail.vue'),
-                meta: { title: 'MC - 病例详情', isAuth: true }
+                meta: { title: 'MC - 创建档案', isAuth: true }
             },
             {
                 path: '/dashboard/plan/create',
                 name: 'PlanCreate',
                 component: () => import('@/pages/plan/Create.vue'),
                 meta: { title: 'MC - 创建计划', isAuth: true }
-            },
-            {
-                path: '/dashboard/plan/detail',
-                name: 'PlanDetail',
-                component: () => import('@/pages/plan/Detail.vue'),
-                meta: { title: 'MC - 计划详情', isAuth: true }
             },
             {
                 path: '/dashboard/plan/record/create',
@@ -98,12 +86,6 @@ const routes: RouteRecordRaw[] = [
         redirect: '/user/detail',
         meta: { title: 'MC - 个人中心', isAuth: true },
         children: [
-            {
-                path: '/user/detail',
-                name: 'UserDetail',
-                component: () => import('@/pages/user/Detail.vue'),
-                meta: { title: 'MC - 个人中心', isAuth: true }
-            },
             {
                 path: '/user/detail/edit',
                 name: 'UserEdit',

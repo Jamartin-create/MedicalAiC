@@ -4,6 +4,7 @@ import CustomHead from '@/components/CustomHead.vue'
 import { ref } from 'vue'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import TodoListItem from './TodoListItem.vue'
 
 const router = useRouter()
 
@@ -48,50 +49,7 @@ const toCheck = (uid: string) => {
         <CustomHead title="Todo" />
         <v-sheet class="bg-transparent px-2">
             <template v-for="item in todolist">
-                <v-hover>
-                    <template v-slot:default="{ isHovering, props: p2 }">
-                        <v-list-item
-                            v-if="!item.isCheck"
-                            v-bind="p2"
-                            class="w-100 cursor-pointer d-flex justify-space-between"
-                            @click="toCheck(item.uid)"
-                        >
-                            <v-tooltip :text="item.title" location="top">
-                                <template v-slot:activator="{ props }">
-                                    <v-sheet v-bind="props" class="todo-title">
-                                        <v-icon class="mdi mdi-circle-small" />
-                                        {{ item.title }}
-                                    </v-sheet>
-                                </template>
-                            </v-tooltip>
-                            <template #append v-bind="p2">
-                                <template v-if="isHovering">
-                                    <v-icon
-                                        class="mdi mdi-checkbox-intermediate"
-                                    />
-                                </template>
-                                <template v-else>
-                                    <v-icon
-                                        class="mdi mdi-checkbox-blank-outline"
-                                    />
-                                </template>
-                            </template>
-                        </v-list-item>
-                        <v-list-item class="cursor-pointer" v-else>
-                            <v-tooltip :text="item.title" location="top">
-                                <template v-slot:activator="{ props }">
-                                    <v-sheet
-                                        v-bind="props"
-                                        class="todo-title text-decoration-line-through"
-                                    >
-                                        <v-icon class="mdi mdi-circle-small" />
-                                        {{ item.title }}
-                                    </v-sheet>
-                                </template>
-                            </v-tooltip>
-                        </v-list-item>
-                    </template>
-                </v-hover>
+                <TodoListItem :item="item" @select="(it) => toCheck(it.uid)" />
             </template>
         </v-sheet>
     </div>

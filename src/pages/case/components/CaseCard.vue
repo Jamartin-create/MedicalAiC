@@ -1,37 +1,52 @@
 <template>
-    <v-card class="mx-auto" max-width="344">
-        <v-card-text>
-            <p class="text-h4 text--primary">{{ item.summary }}</p>
-            <p>{{ item.mdHistory }}</p>
-            <div class="text--primary">
-                {{ item.medical }}
-            </div>
-            <div class="text--primary">
-                {{ item.createdAt }} <br />
-                {{ item.status }}
-            </div>
-        </v-card-text>
-        <v-card-actions>
-            <v-btn variant="text" color="teal-accent-4" @click="toDetail">
-                查看分析结果
-            </v-btn>
-        </v-card-actions>
-    </v-card>
+    <v-hover>
+        <template v-slot:default="{ isHovering, props }">
+            <v-card
+                variant="flat"
+                rounded="xl"
+                :color="isHovering ? 'primary' : ''"
+                class="preset-bg mb-3 d-flex cursor-pointer justify-space-between"
+                v-bind="props"
+                @click="emits('select', item)"
+            >
+                <v-sheet class="bg-transparent d-flex flex-column">
+                    <v-card-title>症状关键词占位</v-card-title>
+                    <v-card-subtitle>
+                        症状关键词列表
+                    </v-card-subtitle>
+                    <v-card-text>
+                        {{ item.status }} - {{ item.createdAt }}
+                    </v-card-text>
+                </v-sheet>
+                <v-sheet class="bg-transparent d-flex align-center">
+                    <v-btn
+                        class="preset-bg mr-2"
+                        size="small"
+                        icon="mdi-pencil"
+                    />
+                    <v-btn
+                        class="preset-bg mr-2"
+                        size="small"
+                        icon="mdi-calendar-blank-multiple"
+                    />
+                    <v-btn
+                        class="bg-red"
+                        size="small"
+                        icon="mdi-delete"
+                    />
+                </v-sheet>
+            </v-card>
+        </template>
+    </v-hover>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
-
-type CompoProps = {
-    item: any
+type PropsT = {
+    item: any;
 }
-const props = defineProps<CompoProps>()
+defineProps<PropsT>()
 
-const toDetail = () => {
-    router.push({ name: 'CaseDetail', query: { id: props.item.uid } })
-}
+const emits = defineEmits(['select'])
+
 </script>
-
-<style scoped></style>

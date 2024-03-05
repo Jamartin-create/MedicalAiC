@@ -18,45 +18,7 @@
             @scroll="handleScroll"
         >
             <template v-slot:default="{ item }">
-                <v-hover>
-                    <template v-slot:default="{ isHovering, props }">
-                        <v-card
-                            variant="flat"
-                            rounded="xl"
-                            :color="isHovering ? 'primary' : ''"
-                            class="preset-bg mb-3 d-flex cursor-pointer justify-space-between"
-                            v-bind="props"
-                            @click="change(item.uid)"
-                        >
-                            <v-sheet class="bg-transparent d-flex flex-column">
-                                <v-card-title>症状关键词占位</v-card-title>
-                                <v-card-subtitle>
-                                    症状关键词列表
-                                </v-card-subtitle>
-                                <v-card-text>
-                                    {{ item.status }} - {{ item.createdAt }}
-                                </v-card-text>
-                            </v-sheet>
-                            <v-sheet class="bg-transparent d-flex align-center">
-                                <v-btn
-                                    class="preset-bg mr-2"
-                                    size="small"
-                                    icon="mdi-pencil"
-                                />
-                                <v-btn
-                                    class="preset-bg mr-2"
-                                    size="small"
-                                    icon="mdi-calendar-blank-multiple"
-                                />
-                                <v-btn
-                                    class="bg-red"
-                                    size="small"
-                                    icon="mdi-delete"
-                                />
-                            </v-sheet>
-                        </v-card>
-                    </template>
-                </v-hover>
+                <CaseCard :item="item" @select="(it) => change(it.uid)" />
             </template>
         </v-virtual-scroll>
         <v-sheet v-if="loading" class="w-100 py-1 d-flex justify-center">
@@ -73,6 +35,7 @@ import { ref } from 'vue'
 import { getCaseList } from '@/api/case'
 import useScroll from '@/hooks/useScroll'
 import { onMounted } from 'vue'
+import CaseCard from './CaseCard.vue'
 
 const router = useRouter()
 
@@ -122,5 +85,3 @@ const toCreate = () => router.push({ name: 'CaseCreate' })
 
 const change = (caseid: string) => emits('change', caseid)
 </script>
-
-<style scoped></style>
