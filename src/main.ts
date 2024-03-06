@@ -18,9 +18,9 @@ import router from './router'
 // global Component
 import { NotificationPlugin } from '@/components/Notification'
 
-createApp(App)
-    .use(router)
-    .use(pinia)
-    .use(vuetify)
-    .use(NotificationPlugin)
-    .mount('#app')
+const app = createApp(App)
+app.use(router)
+app.use(pinia)
+app.use(vuetify)
+app.use(NotificationPlugin)
+app.mount('#app')
