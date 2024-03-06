@@ -47,8 +47,12 @@
                         {{ planType(item.type) }} - {{ item.target }}
                     </v-card-text>
                     <v-card-actions class="d-flex justify-center">
-                        <v-btn>打卡记录</v-btn>
-                        <v-btn>分析报告</v-btn>
+                        <v-btn @click="toRecordList(item.uid)">
+                            打卡记录
+                        </v-btn>
+                        <v-btn @click="toPlanOverview(item.uid)">
+                            分析报告
+                        </v-btn>
                     </v-card-actions>
                 </v-card>
             </template>
@@ -141,6 +145,14 @@ const { getValue: planType } = useDataDir('planType')
 
 const toCreate = async () => {
     router.push({ name: 'PlanCreate' })
+}
+
+const toPlanOverview = async (planid: string) => {
+    router.push({ name: 'PlanOverview', query: { planid } })
+}
+
+const toRecordList = async (planid: string) => {
+    router.push({ name: 'RecordList', query: { planid } })
 }
 </script>
 

@@ -1,3 +1,14 @@
+:root {
+    --preset-bg-color: #f3f3f3;
+    --preset-bg-light-color: #ffffff;
+    --preset-bg-dark-color: #0f1020;
+    --preset-bg-green-color: #ffe6b7;
+    --preset-bg-orange-color: #aff4c6;
+    --preset-bg-orange-color: #f1f1f1;
+
+    --preset-text-color: #a7a7a7;
+}
+
 /** 一些预设样式 */
 .preset-bg {
     background-color: #f3f3f3 !important;
@@ -21,4 +32,9 @@
 
 .preset-bg-gray {
     background-color: #f1f1f1 !important;
+}
+
+/** 布局相关 */
+.preset-scroll {
+    overflow: scroll;
 }

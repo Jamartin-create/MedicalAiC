@@ -1,5 +1,8 @@
 // 时间对齐
 export function formatTime(input, format: string = 'yyyy.MM.dd') {
+    // 如果格式不对，或者数据为空，则返回 null
+    if (!input) return null
+
     // 计算年、月、日、小时、分钟和秒数
     const date = new Date(input)
     const year = date.getFullYear()
