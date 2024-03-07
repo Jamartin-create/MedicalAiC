@@ -64,7 +64,7 @@ export function getPlanReview(params: PlanIdFkT) {
 
 // 获取打卡记录列表
 export function getRecordList(params: PlanIdFkT) {
-    return Request.get<any>(`${prefix}/record/list`, params)
+    return Request.get<any[]>(`${prefix}/record/list`, params)
 }
 
 // 获取打卡记录详情
