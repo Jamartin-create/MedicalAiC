@@ -63,7 +63,7 @@ export function getPlanReview(params: PlanIdFkT) {
 // ---- 打卡记录 ----
 
 // 获取打卡记录列表
-export function getRecordList(params: PlanIdFkT) {
+export function getRecordList(params: Partial<PlanIdFkT> & { month?: number }) {
     return Request.get<any[]>(`${prefix}/record/list`, params)
 }
 
