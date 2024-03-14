@@ -1,5 +1,7 @@
 <template>
-    <v-sheet class="preset-bg-light w-100 h-100 rounded-xl py-2 px-2">
+    <v-sheet
+        class="preset-bg-light w-100 h-100 rounded-xl py-2 px-2 d-flex flex-column"
+    >
         <CustomHead title="档案分析报告">
             <template #append>
                 <v-tooltip text="聊聊？">
@@ -15,7 +17,10 @@
                 </v-tooltip>
             </template>
         </CustomHead>
-        <v-sheet class="w-100 py-6 px-4 d-flex h-100" v-if="caseid">
+        <v-sheet
+            class="preset-scroll w-100 py-6 px-4 d-flex h-100"
+            v-if="caseid"
+        >
             <v-sheet class="w-50 px-4">
                 <CustomKeyValue label="当前状况">
                     {{ getValue(detail.curSituation) || '— —' }}
@@ -30,7 +35,7 @@
                     {{ detail.mdHistory || '— —' }}
                 </CustomKeyValue>
             </v-sheet>
-            <v-sheet class="preset-scroll w-50 h-100">
+            <v-sheet class="w-50">
                 <template v-if="!!detail.analizeDetail?.content">
                     <CustomMessageContentCard
                         :content="detail.analizeDetail.content"
