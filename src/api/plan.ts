@@ -104,3 +104,8 @@ export function getTodoList() {
 export function getCheckList() {
     return Request.get<any>(`${prefix}/plan/checklist`, {})
 }
+
+// 获取 todo 统计
+export function getSevenDaysStatistic() {
+    return Request.get<any[]>(`${prefix}/record/statistic/sevenDays`, {})
+}
