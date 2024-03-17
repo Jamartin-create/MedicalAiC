@@ -13,14 +13,16 @@
             </template>
         </CustomHead>
         <v-virtual-scroll
+            v-if="list.length"
             :items="list"
             class="flex-1-1 px-1"
             @scroll="handleScroll"
         >
             <template v-slot:default="{ item }">
-                <CaseCard :item="item" @select="(it) => change(it.uid)" />
+                <CaseCard :item="item" @select="it => change(it.uid)" />
             </template>
         </v-virtual-scroll>
+        <CustomEmpty v-else>没有录入档案哦~</CustomEmpty>
         <v-sheet v-if="loading" class="w-100 py-1 d-flex justify-center">
             <v-progress-circular indeterminate size="small" />
         </v-sheet>
@@ -36,6 +38,7 @@ import { getCaseList } from '@/api/case'
 import useScroll from '@/hooks/useScroll'
 import { onMounted } from 'vue'
 import CaseCard from './CaseCard.vue'
+import CustomEmpty from '@/components/CustomEmpty.vue'
 
 const router = useRouter()
 

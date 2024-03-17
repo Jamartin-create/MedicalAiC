@@ -5,10 +5,11 @@ import { ref } from 'vue'
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import TodoListItem from './TodoListItem.vue'
+import CustomEmpty from '@/components/CustomEmpty.vue'
 
 const router = useRouter()
 
-const todolist = ref<any[]>()
+const todolist = ref<any[]>([])
 
 const loadData = async () => {
     try {
@@ -49,8 +50,11 @@ const toCheck = (uid: string) => {
         <CustomHead title="Todo" />
         <v-sheet class="bg-transparent px-2">
             <template v-for="item in todolist">
-                <TodoListItem :item="item" @select="(it) => toCheck(it.uid)" />
+                <TodoListItem :item="item" @select="it => toCheck(it.uid)" />
             </template>
+            <CustomEmpty v-if="!todolist.length">
+                暂时没有计划要打卡哦~
+            </CustomEmpty>
         </v-sheet>
     </div>
 </template>

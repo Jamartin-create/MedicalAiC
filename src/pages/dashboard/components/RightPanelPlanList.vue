@@ -24,6 +24,7 @@
             </template>
         </v-sheet>
         <v-virtual-scroll
+            v-if="list.length"
             ref="virtualList"
             :items="list"
             class="flex-1-1 px-1"
@@ -57,6 +58,7 @@
                 </v-card>
             </template>
         </v-virtual-scroll>
+        <CustomEmpty v-else />
         <v-sheet v-if="loading" class="w-100 py-1 d-flex justify-center">
             <v-progress-circular indeterminate size="small" />
         </v-sheet>
@@ -73,6 +75,7 @@ import router from '@/router'
 import { PageParamsT, PageResultT } from '@/api/types'
 import useDataDir from '@/hooks/useDataDir'
 import { formatTime } from '@/utils/tools'
+import CustomEmpty from '@/components/CustomEmpty.vue'
 
 // 筛选 tab 相关
 type TabT = {

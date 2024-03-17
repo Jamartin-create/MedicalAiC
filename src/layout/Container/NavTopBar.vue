@@ -28,8 +28,7 @@
                 class="preset-bg-light w-auto mr-5 px-1 py-1 rounded-pill d-flex align-center justify-center"
             >
                 <Settings />
-                <v-sheet class="mx-4">LilMartin</v-sheet>
-                <v-btn class="text-body-2" size="small" icon="mdi-help" />
+                <v-btn class="text-body-2 mx-2" size="small" icon="mdi-help" />
                 <v-btn class="text-body-2" size="small" icon="mdi-tune" />
             </v-sheet>
         </template>
