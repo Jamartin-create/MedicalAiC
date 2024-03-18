@@ -1,9 +1,9 @@
 import { createApp, ref, defineComponent, h, App } from 'vue'
 
-interface NotificationProps {
-    message: string
-    onClose?: Function
-}
+// interface NotificationProps {
+//     message: string
+//     onClose?: Function
+// }
 
 const NotificationComponent = defineComponent({
     props: {
@@ -13,7 +13,7 @@ const NotificationComponent = defineComponent({
         },
         onClose: Function
     },
-    setup(props: NotificationProps) {
+    setup(props: any) {
         return () => (
             <div class="custom-notification">
                 {props.message}
