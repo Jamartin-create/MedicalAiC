@@ -15,7 +15,7 @@
         <v-sheet class="w-100 h-auto py-4 px-2 d-flex justify-center">
             <template v-for="item in items" :key="item.value">
                 <div
-                    class="mx-1 px-3 py-2 rounded-xl cursor-pointer"
+                    class="plan-tab mx-1 px-3 py-2 rounded-xl cursor-pointer"
                     :class="{ 'preset-bg-dark text-white': item.active }"
                     @click="handleChangeTab(item.value)"
                 >
@@ -159,4 +159,18 @@ const toRecordList = async (planid: string) => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.plan-tab {
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease-in 0.3s;
+}
+
+@media screen and (max-width: 800px) {
+    .plan-tab {
+        width: 100px;
+    }
+}
+</style>

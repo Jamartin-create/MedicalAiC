@@ -28,6 +28,22 @@ import RightPanelPlanList from './components/RightPanelPlanList.vue'
 $left-panel: 300px;
 $right-panel: 300px;
 
+@media screen and (max-width: 1100px) {
+    .layout-left {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .layout-center {
+        display: none;
+    }
+
+    .layout-right {
+        width: 100% !important;
+    }
+}
+
 .home-layout-container {
     height: calc(100vh - 110px);
 
