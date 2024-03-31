@@ -1,5 +1,6 @@
 <template>
     <FormLayout>
+        <!-- 登录表单 -->
         <LoginForm />
     </FormLayout>
 </template>
