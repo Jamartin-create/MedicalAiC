@@ -6,6 +6,10 @@
         <v-sheet class="w-75 py-6" v-if="recordid">
             <CustomMessageCard role="assistant" :content="text" />
         </v-sheet>
+        <!-- 空时 -->
+        <v-sheet v-else class="w-100 h-100 d-flex justify-center align-center">
+            我是你的规划助理，帮你更好的规划明天的计划～
+        </v-sheet>
     </v-sheet>
 </template>
 

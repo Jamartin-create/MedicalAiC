@@ -95,7 +95,7 @@ const { getValue } = useDataDir('caseSituation')
 // 其他逻辑
 const toChat = () => {
     // 跳转到聊天页续写对话
-    router.push({ name: 'ChatRoot', query: { planid: detail.value.uid } })
+    router.push({ name: 'ChatRoot', query: { caseid: detail.value.uid } })
 }
 </script>
 

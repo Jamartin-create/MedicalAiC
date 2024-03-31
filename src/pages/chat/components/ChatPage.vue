@@ -18,11 +18,14 @@
         </div>
 
         <div class="chat-page-footer">
-            <v-text-field
+            <v-textarea
                 v-model="inputText"
                 placeholder="发消息给小助手~"
                 variant="solo-inverted"
                 :persistent-hint="false"
+                :disabled="generating"
+                :rows="1"
+                auto-grow
                 @keydown.enter="handleSubmit"
             >
                 <template v-slot:append-inner>
@@ -35,7 +38,7 @@
                     >
                     </v-btn>
                 </template>
-            </v-text-field>
+            </v-textarea>
         </div>
     </div>
 </template>
@@ -47,7 +50,10 @@ import { watch, nextTick, ref, onMounted } from 'vue'
 import { notify } from '@/components/Notification'
 import { Typewriter } from '@/utils/typeingWriter'
 import { useScroll } from '@vueuse/core'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+
+const route = useRoute()
+const router = useRouter()
 
 // 滚动的元素，滚动至底部
 const chatListWrpRef = ref()
@@ -107,6 +113,9 @@ const handleSubmit = async () => {
                 typer.add(chunk)
             }
         )
+        if (route.params.id === 'create') {
+            router.push({ name: 'Chat', params: { id: chatInfo.value.uid } })
+        }
     } catch (e) {
         console.log(e)
     } finally {
@@ -124,8 +133,6 @@ const getDetail = async (uid: string) => {
     chatList.value = data.chatDetail
 }
 
-const route = useRoute()
-
 watch(
     () => route.params.id,
     n => {
@@ -136,6 +143,7 @@ watch(
             newChatInit()
             return
         }
+        if (chatInfo.value && n === chatInfo.value.uid) return
         n && getDetail(n as string)
     },
     { immediate: true }
@@ -158,7 +166,7 @@ onMounted(() => {
     flex-direction: column;
     height: calc(100%);
 
-    width: 90%;
+    width: 100%;
     max-width: 800px;
 
     .chat-msg-list-wrp {

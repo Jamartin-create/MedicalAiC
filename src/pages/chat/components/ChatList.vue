@@ -1,39 +1,44 @@
 <template>
-    <v-navigation-drawer floating class="preset-bg pl-4 pb-4" :width="280">
-        <v-sheet class="h-100 pt-5 rounded">
-            <v-sheet class="w-100 d-flex justify-center">
-                <v-btn append-icon="mdi-plus" @click="handleCreate">
-                    创建新对话
-                    <template v-slot:prepend>
-                        <v-img
-                            :height="25"
-                            :width="25"
-                            :src="DefaultAiAvatar"
-                        />
-                    </template>
-                </v-btn>
-            </v-sheet>
-            <v-list class="w-100 mt-5 d-flex flex-column align-center">
-                <template v-for="nav in navList" :key="nav.value">
-                    <v-btn
-                        class="preset-bg-gray w-75 my-2"
-                        @click="handleSelect(nav.uid)"
-                    >
-                        {{ nav.title || 'New Chat' }}
-                    </v-btn>
+    <v-sheet
+        rounded="lg"
+        class="chat-list-wrp preset-bg-light px-4 py-4 h-100 d-flex flex-column"
+    >
+        <v-sheet class="w-100 d-flex justify-center">
+            <v-btn append-icon="mdi-plus" @click="handleCreate">
+                创建新对话
+                <template v-slot:prepend>
+                    <v-img :height="25" :width="25" :src="DefaultAiAvatar" />
                 </template>
-            </v-list>
+            </v-btn>
         </v-sheet>
-    </v-navigation-drawer>
+        <v-virtual-scroll :items="navList" class="flex-1-1 w-100 mt-2">
+            <template v-slot:default="{ item }">
+                <v-tooltip :text="item.title" :open-delay="200">
+                    <template v-slot:activator="{ props }">
+                        <v-btn
+                            v-bind="props"
+                            class="preset-bg-gray w-100 my-2"
+                            @click="handleSelect(item.uid)"
+                        >
+                            <div class="chat-name">
+                                {{ item.title || 'New Chat' }}
+                            </div>
+                        </v-btn>
+                    </template>
+                </v-tooltip>
+            </template>
+        </v-virtual-scroll>
+    </v-sheet>
 </template>
 
 <script setup lang="ts">
 import DefaultAiAvatar from '@/assets/images/default-robots-avatar.svg'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { getChatList } from '@/api/chat'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
 const navList = ref<any[]>([])
 
@@ -44,16 +49,40 @@ const chatListInit = async () => {
 }
 
 const handleSelect = (uid: any) => {
-    console.log('select---', uid)
     router.push({ name: 'Chat', params: { id: uid } })
 }
 
 const handleCreate = () => {
-    console.log('新增')
     router.push({ name: 'Chat', params: { id: 'create' } })
 }
 
 onMounted(() => {
     chatListInit()
 })
+
+watch(
+    () => route.params.id,
+    n => {
+        console.log(navList.value.findIndex(item => item.uid === n))
+        if (navList.value.findIndex(item => item.uid === n) === -1) {
+            console.log('查一下')
+            setTimeout(() => {
+                chatListInit()
+            }, 1000)
+        }
+    }
+)
 </script>
+
+<style scoped lang="scss">
+.chat-list-wrp {
+    width: 240px;
+
+    .chat-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 180px !important;
+    }
+}
+</style>

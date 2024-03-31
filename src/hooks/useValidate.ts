@@ -8,6 +8,7 @@ type ValidateT<T> = Ref<Record<keyof T, Validation<any, T>>>
 interface ValidateType<T> {
     form: Ref<T>
     v$: ValidateT<T>
+    loading: Ref<boolean>
     clear: () => void
     submit: () => void
     getMsgList: (key: keyof T) => MsgsT
@@ -24,6 +25,7 @@ export function useFormValidate<T>(
     options: ValidateOption
 ): ValidateType<T> {
     const form = ref<T>({ ...initForm }) as Ref<T>
+    const loading = ref<boolean>(false)
 
     const v = useVuelidate(rules, form)
 
@@ -37,9 +39,16 @@ export function useFormValidate<T>(
     }
 
     const submit = async () => {
-        const val = await v.value.$validate()
-        if (!val) return
-        options && options.callback && options.callback()
+        loading.value = true
+        try {
+            const val = await v.value.$validate()
+            if (!val) return
+            options && options.callback && options.callback()
+        } catch (e) {
+            console.log('submit 失败', e)
+        } finally {
+            loading.value = false
+        }
     }
 
     // 获取错误信息
@@ -50,6 +59,7 @@ export function useFormValidate<T>(
     return {
         v$,
         form,
+        loading,
         clear,
         submit,
         getMsgList

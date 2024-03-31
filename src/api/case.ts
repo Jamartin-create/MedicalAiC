@@ -18,12 +18,12 @@ export type CreateCaseParamsT = {
     mdHistory: string[] // 病史
 }
 
-// 创建病例
+// 创建健康档案
 export function createCase(params: CreateCaseParamsT) {
     return Request.post<any>(`${prefix}/mdCase/create`, params)
 }
 
-// 分析病例
+// 分析健康档案
 export function genAnalize(params: CaseIdFk, callback: (string) => void) {
     return Request.streamFetch(
         `${prefix}/mdCase/genAnalize`,
@@ -43,12 +43,12 @@ export function caseFeedBack(params: FeedBackCaseParamsT) {
     return Request.put(`${prefix}/mdCase/feedBack`, params)
 }
 
-// 获取病例详情
+// 获取健康档案详情
 export function getCaseDetail(params: CaseIdT) {
     return Request.get(`${prefix}/mdCase/detail`, params)
 }
 
-// 获取病例列表
+// 获取健康档案列表
 export function getCaseList(params: PageParamsT) {
     return Request.get<PageResultT>(`${prefix}/mdCase/list`, params)
 }

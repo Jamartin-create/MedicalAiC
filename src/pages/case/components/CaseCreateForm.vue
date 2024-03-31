@@ -28,6 +28,7 @@
             <v-textarea
                 required
                 label="自我描述"
+                placeholder="请描述一下不适的部位，以及近期的作息、饮食……"
                 :error-messages="getMsgList('summary')"
                 v-model:model-value="form.summary"
                 @input="v$.summary.$touch"
@@ -50,10 +51,21 @@
             ></v-combobox>
 
             <v-sheet class="bg-transparent d-flex justify-center">
-                <v-btn :disabled="formdisabled" class="me-4" @click="submit">
+                <v-btn
+                    :loading="loading"
+                    :disabled="formdisabled"
+                    class="me-4"
+                    @click="submit"
+                >
                     创建
                 </v-btn>
-                <v-btn :disabled="formdisabled" @click="clear"> 重置 </v-btn>
+                <v-btn
+                    :loading="loading"
+                    :disabled="formdisabled"
+                    @click="clear"
+                >
+                    重置
+                </v-btn>
             </v-sheet>
         </v-form>
     </v-sheet>
@@ -91,7 +103,7 @@ const rule = {
 
 const formdisabled = ref<boolean>(false)
 
-const { v$, form, clear, submit, getMsgList } =
+const { v$, form, loading, clear, submit, getMsgList } =
     useFormValidate<CreateCaseParamsT>(initForm, rule, {
         callback: async () => {
             const { code, data } = await createCase(form.value)

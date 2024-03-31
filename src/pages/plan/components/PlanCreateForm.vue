@@ -53,10 +53,21 @@
             ></v-text-field>
 
             <v-sheet class="bg-transparent d-flex justify-center">
-                <v-btn class="me-4" :disabled="formdisabled" @click="submit">
+                <v-btn
+                    :loading="loading"
+                    class="me-4"
+                    :disabled="formdisabled"
+                    @click="submit"
+                >
                     创建
                 </v-btn>
-                <v-btn :disabled="formdisabled" @click="clear"> 重置 </v-btn>
+                <v-btn
+                    :loading="loading"
+                    :disabled="formdisabled"
+                    @click="clear"
+                >
+                    重置
+                </v-btn>
             </v-sheet>
         </v-form>
     </v-sheet>
@@ -96,7 +107,7 @@ const rule = {
 
 const formdisabled = ref<boolean>(false)
 
-const { v$, form, clear, submit, getMsgList } =
+const { v$, form, loading, clear, submit, getMsgList } =
     useFormValidate<CreatePlanParamsT>(initForm, rule, {
         callback: async () => {
             form.value.cycle += timeType.value

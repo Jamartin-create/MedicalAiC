@@ -54,6 +54,12 @@
                         <v-btn @click="toPlanOverview(item.uid)">
                             分析报告
                         </v-btn>
+                        <v-btn
+                            v-if="item.status !== 1"
+                            @click="handleOverPlan(item.uid)"
+                        >
+                            结束计划
+                        </v-btn>
                     </v-card-actions>
                 </v-card>
             </template>
@@ -69,7 +75,7 @@
 import CustomHead from '@/components/CustomHead.vue'
 import useListScroll from '@/hooks/useScroll'
 import useCreateTabs from '@/hooks/useCreateTabs'
-import { getPlanList } from '@/api/plan'
+import { completePlan, getPlanList } from '@/api/plan'
 import { onMounted, ref } from 'vue'
 import router from '@/router'
 import { PageParamsT, PageResultT } from '@/api/types'
@@ -85,8 +91,8 @@ type TabT = {
 const tabs: TabT[] = [
     { label: '全部', value: -1 },
     { label: '进行', value: 0 },
-    { label: '结束', value: 1 },
-    { label: '中断', value: 2 }
+    { label: '结束', value: 1 }
+    // { label: '中断', value: 2 }
 ]
 
 // 使用 tab hook
@@ -156,6 +162,14 @@ const toPlanOverview = async (planid: string) => {
 
 const toRecordList = async (planid: string) => {
     router.push({ name: 'RecordList', query: { planid } })
+}
+
+// 结束计划
+const handleOverPlan = async (planid: string) => {
+    const { code } = await completePlan({ uid: planid })
+    if (code !== 0) return
+    resetPage()
+    loadData(pageParams.value)
 }
 </script>
 

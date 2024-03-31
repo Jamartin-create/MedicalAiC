@@ -1,8 +1,9 @@
 <template>
-    <div class="page-wrp">
+    <div class="page-wrp d-flex px-4 pb-4">
         <ChatList />
-        <div class="d-flex justify-center h-100 px-4 pb-4">
+        <div class="bg-transparent d-flex flex-1-1 justify-center h-100">
             <v-sheet
+                rounded="lg"
                 class="preset-bg-light rounded w-100 h-100 d-flex justify-center"
             >
                 <ChatPage />
@@ -18,8 +19,9 @@ import ChatPage from './components/ChatPage.vue'
 
 <style scoped lang="scss">
 .page-wrp {
-    height: calc(100vh - var(--v-layout-top));
+    height: calc(100vh - 110px);
     overflow-y: scroll;
+    gap: 10px;
     .page-main {
         display: flex;
         justify-content: center;

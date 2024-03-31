@@ -46,17 +46,24 @@ const toCheck = (uid: string) => {
 </script>
 
 <template>
-    <div class="panel-wrp preset-bg-light w-100 h-100 rounded-xl px-2 py-2">
+    <v-sheet
+        rounded="xl"
+        class="preset-bg-light w-100 h-100 px-2 py-2 d-flex flex-column"
+    >
         <CustomHead title="Todo" />
-        <v-sheet class="bg-transparent px-2">
-            <template v-for="item in todolist">
+        <v-virtual-scroll
+            v-if="todolist.length"
+            :items="todolist"
+            class="bg-transparent px-2 flex-1-1"
+        >
+            <template v-slot:default="{ item }">
                 <TodoListItem :item="item" @select="it => toCheck(it.uid)" />
             </template>
-            <CustomEmpty v-if="!todolist.length">
-                暂时没有计划要打卡哦~
-            </CustomEmpty>
-        </v-sheet>
-    </div>
+        </v-virtual-scroll>
+        <CustomEmpty v-if="!todolist.length">
+            暂时没有计划要打卡哦~
+        </CustomEmpty>
+    </v-sheet>
 </template>
 
 <style lang="scss" scoped>

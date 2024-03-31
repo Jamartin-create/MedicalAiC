@@ -76,6 +76,7 @@ export type CreateRecordParamsT = {
     diet: string // 饮食
     sleep: string // 作息
     medical: string // 用药
+    other: string // 其他（补充描述）
 } & PlanIdFkT
 
 // 打卡

@@ -5,35 +5,16 @@
                 variant="flat"
                 rounded="xl"
                 :color="isHovering ? 'primary' : ''"
-                class="preset-bg mb-3 d-flex cursor-pointer justify-space-between"
+                class="preset-bg mb-3 cursor-pointer"
                 v-bind="props"
                 @click="emits('select', item)"
             >
                 <v-sheet class="bg-transparent d-flex flex-column">
-                    <v-card-title>症状关键词占位</v-card-title>
-                    <v-card-subtitle>
-                        症状关键词列表
-                    </v-card-subtitle>
+                    <v-card-title>{{ item.title }}</v-card-title>
                     <v-card-text>
-                        {{ item.status }} - {{ item.createdAt }}
+                        {{ getValue(item.status) }} -
+                        {{ formatTime(item.createdAt, 'yyyy-MM-dd hh:mm') }}
                     </v-card-text>
-                </v-sheet>
-                <v-sheet class="bg-transparent d-flex align-center">
-                    <v-btn
-                        class="preset-bg mr-2"
-                        size="small"
-                        icon="mdi-pencil"
-                    />
-                    <v-btn
-                        class="preset-bg mr-2"
-                        size="small"
-                        icon="mdi-calendar-blank-multiple"
-                    />
-                    <v-btn
-                        class="bg-red"
-                        size="small"
-                        icon="mdi-delete"
-                    />
                 </v-sheet>
             </v-card>
         </template>
@@ -41,12 +22,15 @@
 </template>
 
 <script setup lang="ts">
+import useDataDir from '@/hooks/useDataDir'
+import { formatTime } from '@/utils/tools'
 
 type PropsT = {
-    item: any;
+    item: any
 }
 defineProps<PropsT>()
 
 const emits = defineEmits(['select'])
 
+const { getValue } = useDataDir('caseSituation')
 </script>

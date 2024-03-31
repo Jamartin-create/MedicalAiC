@@ -41,11 +41,29 @@
                 @blur="v$.medical.$touch"
             />
 
+            <v-textarea
+                required
+                label="其他"
+                rows="2"
+                v-model:model-value="form.other"
+            />
+
             <v-sheet class="d-flex justify-center mt-2">
-                <v-btn :disabled="formdisabled" class="me-4" @click="submit">
+                <v-btn
+                    :loading="loading"
+                    :disabled="formdisabled"
+                    class="me-4"
+                    @click="submit"
+                >
                     创建
                 </v-btn>
-                <v-btn :disabled="formdisabled" @click="clear"> 重置 </v-btn>
+                <v-btn
+                    :loading="loading"
+                    :disabled="formdisabled"
+                    @click="clear"
+                >
+                    重置
+                </v-btn>
             </v-sheet>
         </v-form>
     </v-sheet>
@@ -68,6 +86,7 @@ const initForm: CreateRecordParamsT = {
     diet: '',
     sleep: '',
     medical: '',
+    other: '',
     planid: route.query.id as string
 }
 
@@ -79,7 +98,7 @@ const rule = {
 
 const formdisabled = ref<boolean>(false)
 
-const { v$, form, clear, submit, getMsgList } =
+const { v$, form, loading, clear, submit, getMsgList } =
     useFormValidate<CreateRecordParamsT>(initForm, rule, {
         callback: async () => {
             const { code, data } = await createRecord(form.value)
