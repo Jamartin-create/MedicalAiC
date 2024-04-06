@@ -138,6 +138,7 @@ const pinia = useAuthStore()
 
 const { userInfo } = pinia
 
+// 初始表单
 const initForm: UpdateUserInfoParamsT = {
     realname: userInfo?.realname || '',
     gender: userInfo?.gender == null ? -1 : userInfo.gender,
@@ -151,6 +152,7 @@ const initForm: UpdateUserInfoParamsT = {
     uid: pinia.userInfoGetter.uid
 }
 
+// 表单校验规则
 const rule = {
     gender: {
         required: helpers.withMessage(
@@ -194,6 +196,7 @@ const rule = {
     }
 }
 
+// 利用表单创建 hook，处理表单信息
 const { v$, form, submit, getMsgList } = useFormValidate<UpdateUserInfoParamsT>(
     initForm,
     rule,

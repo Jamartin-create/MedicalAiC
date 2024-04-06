@@ -1,4 +1,4 @@
-/** @description 数据字典，用于对比 code 获取中文 */
+/** @description 数据字典，用于对比 code 获取中文，比如计划状态：0=进行中…… */
 
 import { ref } from 'vue'
 

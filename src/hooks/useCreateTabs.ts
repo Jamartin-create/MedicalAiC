@@ -25,19 +25,21 @@ type ExportTabT<T> = {
     active: boolean
 }
 
+// 快速创建 Tab hook
 export default function useCreateTabs<T>(
     tabItems: T[],
     options: OptionsT,
     keys: KeyT = { ...defaultKeys }
 ) {
     // 先处理形参
-    const { label, value } = keys
+    const { label, value } = keys // 键值对的 key，比如说一个数组：[text: 'a', name: '123']，这里 label 就是 text，value 就是 name
     const { callback, defaultActive } = options
 
     // 搞个默认值
     const active = ref<string | number>(tabItems[0][value])
     if (defaultActive) active.value = defaultActive
 
+    // 初始化 tab 列表（这里固定格式为 label、value……）
     const items = ref<ExportTabT<T>[]>(
         tabItems.map(item => {
             return {

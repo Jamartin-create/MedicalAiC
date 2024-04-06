@@ -1,8 +1,11 @@
 <template>
+    <!-- 计划创建页面 -->
     <v-layout class="home-layout-container w-100 d-flex">
+        <!-- 左 -->
         <v-sheet class="form-layout-wrp bg-transparent ml-4 mr-2 mb-4">
             <PlanCreateForm @analize="handleGenOverwrite" />
         </v-sheet>
+        <!-- 右 -->
         <v-sheet class="bg-transparent flex-1-1 mr-4 ml-2 mb-4">
             <PlanCreateOvAnaPanel :planid="planid" />
         </v-sheet>

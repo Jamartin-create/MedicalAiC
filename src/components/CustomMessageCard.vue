@@ -1,4 +1,5 @@
 <template>
+    <!-- 通用消息展示组件 -->
     <v-sheet class="bg-transparent">
         <div class="chat-message">
             <div class="chat-message-avatar">

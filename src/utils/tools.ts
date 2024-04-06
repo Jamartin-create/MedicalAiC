@@ -1,4 +1,4 @@
-// 时间对齐
+// 时间展示格式化
 export function formatTime(input, format: string = 'yyyy.MM.dd') {
     // 如果格式不对，或者数据为空，则返回 null
     if (!input) return null

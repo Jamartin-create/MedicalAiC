@@ -1,4 +1,4 @@
-/** @description 用户仓库 */
+/** @description 用户仓库（用于存放用户信息，token、个人信息等） */
 import { emailLogin, getInfo, login } from '@/api/auth'
 import type { PwdLoginParamsT, EmailLoginParamsT } from '@/api/auth'
 import { piniaPersistConfig } from '../plugins/pinia'
@@ -21,9 +21,11 @@ export const useAuthStore = defineStore({
         userInfo: null
     }),
     getters: {
+        // 判断用户是否登录
         isLogin(): boolean {
             return !!this.token
         },
+        // 获取用户信息
         userInfoGetter(): any {
             if (!this.userInfo) return {}
             return this.userInfo || {}
@@ -35,9 +37,9 @@ export const useAuthStore = defineStore({
             let res: null | ResponseT<any> = null
             // 类型收窄
             if ('email' in params) {
-                res = await emailLogin(params)
+                res = await emailLogin(params) // 邮箱登录
             } else {
-                res = await login(params)
+                res = await login(params) // 普通登录
             }
 
             const { code, data } = res
@@ -45,14 +47,15 @@ export const useAuthStore = defineStore({
 
             this.token = data
 
-            await this.getUserInfo()
-            router.push({ name: 'Dashboard' })
+            await this.getUserInfo() // 登录成功后获取一次用户信息
+            router.push({ name: 'Dashboard' }) // 然后跳转到
 
             notify('登录成功')
         },
+        // 退出登录
         async logout() {
-            this.$reset()
-            router.push({ name: 'Login' })
+            this.$reset() // 清空用户信息
+            router.push({ name: 'Login' }) // 跳转到 登录页
         },
         // 获取用户信息
         async getUserInfo(): Promise<boolean> {
@@ -63,5 +66,5 @@ export const useAuthStore = defineStore({
             return true
         }
     },
-    persist: piniaPersistConfig(storeName)
+    persist: piniaPersistConfig(storeName) // 持久化：将用户信息存在浏览器内存中（知识点：LocalStorage）
 })

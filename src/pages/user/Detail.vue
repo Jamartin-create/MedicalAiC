@@ -1,4 +1,5 @@
 <template>
+    <!-- 用户详情页面 -->
     <v-container class="user-basic-info">
         <v-breadcrumbs :items="breadcrumbs"></v-breadcrumbs>
         <v-row justify="center">
@@ -55,10 +56,11 @@ import { ref } from 'vue'
 
 const pinia = useAuthStore()
 
-const loading = ref<boolean>(false)
+const loading = ref<boolean>(false) // 当前是否正在加载数据
 
 const userInfo = ref<any>({})
 
+// 获取数据
 async function loadData() {
     loading.value = true
     try {
@@ -86,6 +88,7 @@ const breadcrumbs = [
     }
 ]
 
+// 挂载时即开始获取用户信息
 onMounted(() => {
     loadData()
 })

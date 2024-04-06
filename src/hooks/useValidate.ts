@@ -38,6 +38,7 @@ export function useFormValidate<T>(
         v.value.$reset()
     }
 
+    // 提交表单（封装了校验表单的过程）
     const submit = async () => {
         loading.value = true
         try {

@@ -1,4 +1,5 @@
 <template>
+    <!-- 通用消息内容展示组件 -->
     <div v-html="content" style="white-space: pre-wrap"></div>
 </template>
 

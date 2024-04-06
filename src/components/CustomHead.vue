@@ -1,4 +1,5 @@
 <template>
+    <!-- 通用卡片头部 -->
     <v-sheet class="w-100 px-4 py-4 d-flex align-center justify-space-between">
         <div class="text-h5 text-bold">
             {{ title }}

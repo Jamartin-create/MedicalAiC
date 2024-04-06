@@ -1,4 +1,5 @@
 <template>
+    <!-- 通用缺省图 -->
     <v-sheet
         class="bg-transparent h-100 w-100 d-flex flex-column justify-center align-center"
     >

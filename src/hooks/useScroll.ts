@@ -1,5 +1,5 @@
-import { PageParamsT } from "@/api/types"
-import { ref } from "vue"
+import { PageParamsT } from '@/api/types'
+import { ref } from 'vue'
 
 export interface UseScrollT {
     callback: (pageParams: PageParamsT) => any // 默认必传回分页参数
@@ -17,17 +17,25 @@ export default function useScroll(params: UseScrollT) {
     // 如果定义了初始化的数据
     if (pageOptions) pageParams.value = { ...pageOptions }
 
-    // 监测滚动时间
+    // 监测滚动事件
     function handleScroll(e: Event) {
-        const { clientHeight, scrollHeight, scrollTop } = e.target as HTMLElement
-    
-        // 触底检测
-        if(direction === 'up' && scrollTop !== 0) return
-        else if ((!direction || direction === 'down') && (clientHeight + scrollTop !== scrollHeight)) return
+        const { clientHeight, scrollHeight, scrollTop } =
+            e.target as HTMLElement
+
+        if (direction === 'up' && scrollTop !== 0) {
+            // 触顶检测
+            return
+        } else if (
+            (!direction || direction === 'down') &&
+            clientHeight + scrollTop !== scrollHeight
+        ) {
+            // 触底检测
+            return
+        }
         if (!callback) return
         callback({ ...pageParams.value }) // 浅拷贝一下，因为后面要改变值了
 
-        pageParams.value.pageIndex += 1
+        pageParams.value.pageIndex += 1 // 查询后开始翻页
     }
 
     // 重置分页参数

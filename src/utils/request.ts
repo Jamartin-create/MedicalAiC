@@ -2,6 +2,7 @@ import axios from '@/plugins/axios'
 import { useAuthStore } from '@/store/auth'
 import { AxiosRequestConfig } from 'axios'
 
+// 事件解析器（将 GPT 返回的流式数据格式化 —— 知识点：EventSource）
 const eventStreamDataTrans = (es: string) => {
     const eventIdx = es.indexOf('event: ')
     const dataIdx = es.indexOf('data: ')
@@ -11,6 +12,7 @@ const eventStreamDataTrans = (es: string) => {
     }
 }
 
+// 响应数据类型
 export type ResponseT<T> = {
     code: number
     msg: string
@@ -18,6 +20,7 @@ export type ResponseT<T> = {
 }
 
 export class Request {
+    // 发送 GET 请求
     static get = <T>(url: string, params: any): Promise<ResponseT<T>> => {
         return new Promise((reso, reje) => {
             axios
@@ -30,6 +33,8 @@ export class Request {
                 })
         })
     }
+
+    // 发送 POST 请求
     static post = <T>(
         url: string,
         params: any,
@@ -46,6 +51,8 @@ export class Request {
                 })
         })
     }
+
+    // 发送 DELETE 请求
     static delete = <T>(url: string, params: any): Promise<ResponseT<T>> => {
         return new Promise((reso, reje) => {
             axios
@@ -58,6 +65,8 @@ export class Request {
                 })
         })
     }
+
+    // 发送 PUT 请求
     static put = <T>(url: string, params: any): Promise<ResponseT<T>> => {
         return new Promise((reso, reje) => {
             axios
@@ -71,7 +80,7 @@ export class Request {
         })
     }
 
-    // 流式调用
+    // 流式调用（请求 GPT 数据）
     static streamFetch = (
         url: string,
         params: any,

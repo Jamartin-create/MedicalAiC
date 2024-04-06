@@ -1,4 +1,5 @@
 <template>
+    <!-- 主界面布局框架 -->
     <v-app class="main-container preset-bg w-100">
         <!-- 头部导航 -->
         <NavTopBar />

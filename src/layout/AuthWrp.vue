@@ -1,4 +1,5 @@
 <template>
+    <!-- 登录/注册页面布局框架 -->
     <v-layout class="auth-wrapper">
         <div class="auth-wrapper-left">
             <div class="page-logo">

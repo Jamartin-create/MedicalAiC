@@ -7,11 +7,12 @@ import { useAuthStore } from '@/store/auth'
 import routes from './routes'
 import { notify } from '@/components/Notification'
 
+// 知识点：前端中的 history & hash 模式的区别
 const router = createRouter({
     history:
         import.meta.env.VITE_ROUTER_MODE === 'hash'
-            ? createWebHashHistory()
-            : createWebHistory(),
+            ? createWebHashHistory() // history 模式
+            : createWebHistory(), // hash 模式
     routes,
     // 保存滚动条位置
     scrollBehavior(_to, _from, savedPosition) {

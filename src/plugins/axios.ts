@@ -7,6 +7,7 @@ import axios, {
     InternalAxiosRequestConfig
 } from 'axios'
 
+// 请求异常处理
 function errorHandler(status: number, options: any) {
     let message = ''
     // 状态码判断
@@ -30,7 +31,7 @@ function errorHandler(status: number, options: any) {
         default:
             break
     }
-    message && notify(message)
+    message && notify(message) // 然后提示
 }
 
 //取消重复请求
@@ -87,6 +88,7 @@ function reqInter(config: InternalAxiosRequestConfig) {
         })
     })
 
+    // 判断用户是否登录，如果登录，请求时自动为其携带 Token
     const authStore = useAuthStore()
     if (authStore.isLogin)
         config.headers.Authorization = 'Bearer ' + authStore.token
@@ -97,7 +99,6 @@ function reqInter(config: InternalAxiosRequestConfig) {
  * @description 请求拦截异常
  */
 function reqInterErr(error: any) {
-    //TODO: 异常处理
     console.error(error.data.error.message)
     return Promise.reject(error.data.error.message)
 }

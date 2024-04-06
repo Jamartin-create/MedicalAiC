@@ -1,4 +1,5 @@
 <template>
+    <!-- 单页面布局框架 -->
     <v-app class="main-container w-100">
         <!-- 头部导航 -->
         <NavTopBar />
