@@ -141,6 +141,7 @@ const { pageParams, resetPage, handleScroll } = useListScroll({
     }
 })
 
+// 页面加载完毕后立即执行 - Vue的生命周期
 onMounted(() => {
     loadData(pageParams.value)
     pageParams.value.pageIndex += 1

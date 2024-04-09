@@ -83,11 +83,12 @@ export class Request {
     // 流式调用（请求 GPT 数据）
     static streamFetch = (
         url: string,
-        params: any,
-        method: string,
-        callback: (string) => void
+        params: any, // 参数
+        method: string, // 请求方式
+        callback: (string) => void // 回调（每当后端返回了数据，这里就回调一下定义好的方法）
     ) => {
         return new Promise((resolve, reject) => {
+            // 请求的发起 - fetch
             fetch(`${import.meta.env.VITE_BASE_URL}${url}`, {
                 method,
                 body: JSON.stringify(params),
@@ -96,24 +97,27 @@ export class Request {
                     'Content-Type': 'application/json'
                 }
             }).then(async response => {
-                const encode = new TextDecoder('utf-8')
-                const reader = response.body?.getReader()
+                // 转义 => 二进制数据转换成文本 ----
+
+                const encode = new TextDecoder('utf-8') // 创建一个解码器
+                const reader = response.body?.getReader() // 类似一个读卡器
 
                 while (true) {
                     const red = await reader?.read()
+                    // 如果结束-退出循环
                     if (red?.done) {
                         resolve(true)
                         break
                     }
-                    const text = encode.decode(red?.value)
+                    const text = encode.decode(red?.value) // 二进制解码
 
                     if (text === '<ERR>') {
-                        callback('Error')
+                        callback('Error') // 失败
                         reject('error')
                         break
                     } else {
                         const { data } = eventStreamDataTrans(text)
-                        callback(JSON.parse(data).result)
+                        callback(JSON.parse(data).result) // 执行回调
                     }
                 }
             })

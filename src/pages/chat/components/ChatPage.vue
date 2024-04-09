@@ -107,12 +107,14 @@ const handleSubmit = async () => {
         chatList.value.push({ role: 'user', content: question })
         chatList.value.push({ role: 'assistant', content: '' })
 
+        // 流式请求开始
         await keepOnChat(
             { content: question, uid: chatInfo.value.uid },
             (chunk: string) => {
                 typer.add(chunk)
             }
         )
+
         if (route.params.id === 'create') {
             router.push({ name: 'Chat', params: { id: chatInfo.value.uid } })
         }

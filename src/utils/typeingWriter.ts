@@ -9,7 +9,7 @@ export class Typewriter {
     // 计时器
     private timmer: any
     constructor(private onConsume: (str: string) => void) {}
-    // 输出速度动态控制（输出速度与当亲队列长度有关，数据越短，输出的越快）
+    // 输出速度动态控制（输出速度与当亲队列长度有关，数据越长，输出的越快）
     dynamicSpeed() {
         const speed = 2000 / this.queue.length
         if (speed > 200) {

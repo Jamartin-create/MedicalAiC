@@ -19,6 +19,9 @@ export default function useScroll(params: UseScrollT) {
 
     // 监测滚动事件
     function handleScroll(e: Event) {
+        // clientHeight：元素在可视区域内的高度
+        // scrollHeight：元素的真实高度
+        // scrollTop：元素滚动的高度
         const { clientHeight, scrollHeight, scrollTop } =
             e.target as HTMLElement
 

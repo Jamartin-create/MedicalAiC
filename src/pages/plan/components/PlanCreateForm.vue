@@ -115,7 +115,7 @@ const { v$, form, loading, clear, submit, getMsgList } =
             if (code !== 0) return
             notify('创建成功，即将开始分析')
             formdisabled.value = true
-            emits('analize', data.uid)
+            emits('analize', data.uid) // 抛出事件
         }
     })
 
