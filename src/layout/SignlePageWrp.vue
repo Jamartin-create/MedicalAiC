@@ -1,12 +1,11 @@
 <template>
-    <!-- 单页面布局框架 -->
     <v-app class="main-container w-100">
         <!-- 头部导航 -->
         <NavTopBar />
 
         <v-main>
             <RouterView v-slot="{ Component }">
-                <Transition name="page" mode="out-in">
+                <Transition name="subpage" mode="out-in">
                     <component :is="Component"></component>
                 </Transition>
             </RouterView>

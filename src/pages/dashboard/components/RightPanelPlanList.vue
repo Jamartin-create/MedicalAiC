@@ -77,11 +77,13 @@ import useListScroll from '@/hooks/useScroll'
 import useCreateTabs from '@/hooks/useCreateTabs'
 import { completePlan, getPlanList } from '@/api/plan'
 import { onMounted, ref } from 'vue'
-import router from '@/router'
 import { PageParamsT, PageResultT } from '@/api/types'
 import useDataDir from '@/hooks/useDataDir'
 import { formatTime } from '@/utils/tools'
 import CustomEmpty from '@/components/CustomEmpty.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 // 筛选 tab 相关
 type TabT = {
@@ -153,15 +155,15 @@ const { getValue: planType } = useDataDir('planType')
 
 // 零散逻辑
 
-const toCreate = async () => {
+const toCreate = () => {
     router.push({ name: 'PlanCreate' })
 }
 
-const toPlanOverview = async (planid: string) => {
+const toPlanOverview = (planid: string) => {
     router.push({ name: 'PlanOverview', query: { planid } })
 }
 
-const toRecordList = async (planid: string) => {
+const toRecordList = (planid: string) => {
     router.push({ name: 'RecordList', query: { planid } })
 }
 

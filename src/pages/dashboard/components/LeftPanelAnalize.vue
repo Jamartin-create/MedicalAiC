@@ -14,10 +14,11 @@ import { onMounted } from 'vue'
 
 const initOptions = async () => {
     try {
+        // api：获取近七日统计信息
         const { code, data } = await getSevenDaysStatistic()
-        const recordCount: number[] = []
-        const needCount: number[] = []
-        const dateList: string[] = []
+        const recordCount: number[] = [] // 打卡数量
+        const needCount: number[] = [] // 应打卡数量
+        const dateList: string[] = [] // 日期信息
 
         if (code !== 0) return
 

@@ -1,5 +1,6 @@
 <template>
     <v-app-bar class="preset-bg" :elevation="0" :height="110">
+        <!-- tabs：工作台、助手、档案…… -->
         <v-container
             class="preset-bg-light w-auto py-0 px-0 rounded-pill d-flex align-center justify-center"
         >
@@ -16,6 +17,7 @@
                 </template>
             </div>
         </v-container>
+        <!-- LOGO & 名字 -->
         <template v-slot:prepend>
             <v-sheet class="prepend preset-bg d-flex align-center">
                 <div class="logo-wrp mx-4">
@@ -24,6 +26,7 @@
                 <v-app-bar-title>MedicalAi</v-app-bar-title>
             </v-sheet>
         </template>
+        <!-- 个人信息 & 其他 -->
         <template v-slot:append>
             <v-sheet
                 class="append preset-bg-light w-auto mr-5 px-1 py-1 rounded-pill d-flex align-center justify-center"
