@@ -12,7 +12,7 @@
                 <v-sheet class="bg-transparent d-flex flex-column">
                     <v-card-title>{{ item.title }}</v-card-title>
                     <v-card-text>
-                        {{ getValue(item.status) }} -
+                        {{ getValue(item.curSituation) }} -
                         {{ formatTime(item.createdAt, 'yyyy-MM-dd hh:mm') }}
                     </v-card-text>
                 </v-sheet>
