@@ -1,6 +1,6 @@
 <template>
-    <!-- 用户详情页面 -->
     <v-container class="user-basic-info">
+        <!-- 用户详情页面 -->
         <v-breadcrumbs :items="breadcrumbs"></v-breadcrumbs>
         <v-row justify="center">
             <v-avatar size="70px">

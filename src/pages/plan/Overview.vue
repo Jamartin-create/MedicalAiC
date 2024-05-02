@@ -1,6 +1,6 @@
 <template>
-    <!-- 计划总览详情页面 -->
     <v-layout class="home-layout-container w-100 d-flex">
+        <!-- 计划总览详情页面 -->
         <v-sheet class="form-layout-wrp bg-transparent ml-4 mr-2 mb-4">
             <PlanDetail :detail="detail" />
         </v-sheet>

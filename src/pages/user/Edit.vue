@@ -1,6 +1,6 @@
 <template>
-    <!-- 用户编辑页面 -->
     <v-container>
+        <!-- 用户编辑页面 -->
         <v-breadcrumbs :items="breadcrumbs"></v-breadcrumbs>
         <BasicEditorForm />
     </v-container>

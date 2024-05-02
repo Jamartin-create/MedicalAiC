@@ -1,6 +1,6 @@
 <template>
-    <!-- 计划打卡列表页面 -->
     <v-layout class="home-layout-container w-100 d-flex">
+        <!-- 计划打卡列表页面 -->
         <v-sheet class="bg-transparent flex-1-1 mr-4 ml-2 mb-4">
             <RecordListCalendar />
         </v-sheet>
