@@ -77,6 +77,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { notify } from '@/components/Notification'
 import CustomHead from '@/components/CustomHead.vue'
 import { ref } from 'vue'
+import useLoading from '@/hooks/useLoading'
+
+const { show, hide } = useLoading()
 
 const emits = defineEmits(['analize'])
 const router = useRouter()
@@ -101,11 +104,16 @@ const formdisabled = ref<boolean>(false)
 const { v$, form, loading, clear, submit, getMsgList } =
     useFormValidate<CreateRecordParamsT>(initForm, rule, {
         callback: async () => {
-            const { code, data } = await createRecord(form.value)
-            if (code !== 0) return
-            notify('打卡成功')
-            formdisabled.value = true
-            emits('analize', data.uid)
+            show('正在创建打卡记录')
+            try {
+                const { code, data } = await createRecord(form.value)
+                if (code !== 0) return
+                notify('打卡成功')
+                formdisabled.value = true
+                emits('analize', data.uid)
+            } catch (e) {
+                hide()
+            }
         }
     })
 

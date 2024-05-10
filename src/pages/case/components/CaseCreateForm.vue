@@ -79,6 +79,9 @@ import CustomHead from '@/components/CustomHead.vue'
 import { notify } from '@/components/Notification'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import useLoading from '@/hooks/useLoading'
+
+const { show, hide } = useLoading()
 
 const router = useRouter()
 const emits = defineEmits(['analize'])
@@ -106,11 +109,16 @@ const formdisabled = ref<boolean>(false)
 const { v$, form, loading, clear, submit, getMsgList } =
     useFormValidate<CreateCaseParamsT>(initForm, rule, {
         callback: async () => {
-            const { code, data } = await createCase(form.value)
-            if (code !== 0) return
-            notify('创建成功，即将开始分析')
-            formdisabled.value = true
-            emits('analize', data.uid)
+            show('正在创建健康档案')
+            try {
+                const { code, data } = await createCase(form.value)
+                if (code !== 0) return
+                notify('创建成功，即将开始分析')
+                formdisabled.value = true
+                emits('analize', data.uid)
+            } catch (e) {
+                hide()
+            }
         }
     })
 

@@ -81,6 +81,9 @@ import CustomHead from '@/components/CustomHead.vue'
 import { notify } from '@/components/Notification'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import useLoading from '@/hooks/useLoading'
+
+const { show, hide } = useLoading()
 
 const emits = defineEmits(['analize'])
 const router = useRouter()
@@ -110,12 +113,17 @@ const formdisabled = ref<boolean>(false)
 const { v$, form, loading, clear, submit, getMsgList } =
     useFormValidate<CreatePlanParamsT>(initForm, rule, {
         callback: async () => {
-            form.value.cycle += timeType.value
-            const { code, data } = await createPlan(form.value)
-            if (code !== 0) return
-            notify('创建成功，即将开始分析')
-            formdisabled.value = true
-            emits('analize', data.uid) // 抛出事件
+            show('正在创建计划')
+            try {
+                form.value.cycle += timeType.value
+                const { code, data } = await createPlan(form.value)
+                if (code !== 0) return
+                notify('创建成功，即将开始分析')
+                formdisabled.value = true
+                emits('analize', data.uid) // 抛出事件
+            } catch (e) {
+                hide()
+            }
         }
     })
 
