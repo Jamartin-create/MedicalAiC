@@ -205,6 +205,7 @@ const { v$, form, submit, getMsgList } = useFormValidate<UpdateUserInfoParamsT>(
             const { code } = await editInfo(form.value)
             console.log(code)
             if (code !== 0) return
+            pinia.getUserInfo()
             notify('更新成功')
         }
     }

@@ -3,9 +3,7 @@
         <template v-slot:activator="{ props }">
             <v-btn icon v-bind="props">
                 <v-avatar color="green" size="large">
-                    <v-img
-                        :src="pinia.userInfoGetter.avatar || defaultAvatar"
-                    />
+                    <v-img :src="pinia.userInfo.avatar || defaultAvatar" />
                 </v-avatar>
             </v-btn>
         </template>
@@ -13,13 +11,11 @@
             <v-card-text>
                 <div class="mx-auto text-center">
                     <v-avatar color="brown">
-                        <v-img
-                            :src="pinia.userInfoGetter.avatar || defaultAvatar"
-                        />
+                        <v-img :src="pinia.userInfo.avatar || defaultAvatar" />
                     </v-avatar>
-                    <h3 class="mt-5">{{ pinia.userInfoGetter.realname }}</h3>
+                    <h3 class="mt-5">{{ pinia.userInfo.realname }}</h3>
                     <p class="text-caption mt-1">
-                        {{ pinia.userInfoGetter.email }}
+                        {{ pinia.userInfo.email }}
                     </p>
                     <v-divider class="my-3"></v-divider>
                     <v-btn rounded variant="text" @click="toEdit">
