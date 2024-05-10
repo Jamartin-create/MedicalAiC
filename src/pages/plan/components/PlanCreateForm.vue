@@ -122,6 +122,8 @@ const { v$, form, loading, clear, submit, getMsgList } =
                 formdisabled.value = true
                 emits('analize', data.uid) // 抛出事件
             } catch (e) {
+                console.log(e)
+            } finally {
                 hide()
             }
         }
