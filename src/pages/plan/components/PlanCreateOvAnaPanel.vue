@@ -4,6 +4,17 @@
     >
         <v-sheet class="w-75 py-6" v-if="planid">
             <CustomMessageCard role="assistant" :content="text" />
+
+            <div class="msg-generate-loading">
+                <v-progress-circular
+                    v-if="generating"
+                    size="20"
+                    width="2"
+                    indeterminate
+                    class="mb-10"
+                    color="black"
+                />
+            </div>
         </v-sheet>
         <!-- 空时 -->
         <v-sheet v-else class="w-100 h-100 d-flex justify-center align-center">
@@ -55,8 +66,14 @@ watch(
 )
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ana-panel-wrp {
     overflow: scroll;
+
+    .msg-generate-loading {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }
 </style>

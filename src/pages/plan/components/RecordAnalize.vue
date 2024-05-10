@@ -5,6 +5,17 @@
     >
         <v-sheet class="w-75 py-6" v-if="recordid">
             <CustomMessageCard role="assistant" :content="text" />
+
+            <div class="msg-generate-loading">
+                <v-progress-circular
+                    v-if="generating"
+                    size="20"
+                    width="2"
+                    indeterminate
+                    class="mb-10"
+                    color="black"
+                />
+            </div>
         </v-sheet>
         <!-- 空时 -->
         <v-sheet v-else class="w-100 h-100 d-flex justify-center align-center">
