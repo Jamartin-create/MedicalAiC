@@ -66,8 +66,14 @@ watch(
 )
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .ana-panel-wrp {
     overflow: scroll;
+
+    .msg-generate-loading {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 }
 </style>
