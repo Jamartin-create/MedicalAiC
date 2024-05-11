@@ -18,7 +18,7 @@ export const useAuthStore = defineStore({
     id: storeName,
     state: (): State => ({
         token: '',
-        userInfo: null
+        userInfo: {}
     }),
     getters: {
         // 判断用户是否登录
@@ -54,8 +54,8 @@ export const useAuthStore = defineStore({
         },
         // 退出登录
         async logout() {
-            this.$reset() // 清空用户信息
             router.push({ name: 'Login' }) // 跳转到 登录页
+            this.$reset() // 清空用户信息
         },
         // 获取用户信息
         async getUserInfo(): Promise<boolean> {

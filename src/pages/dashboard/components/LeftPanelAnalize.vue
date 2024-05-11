@@ -78,6 +78,10 @@ const initOptions = async () => {
 onMounted(() => {
     initOptions()
 })
+
+defineExpose({
+    reload: () => initOptions()
+})
 </script>
 
 <style lang="scss" scoped></style>

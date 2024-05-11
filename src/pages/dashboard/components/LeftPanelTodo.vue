@@ -43,6 +43,10 @@ onMounted(() => {
 const toCheck = (uid: string) => {
     router.push({ name: 'RecordCreate', query: { id: uid } })
 }
+
+defineExpose({
+    reload: () => loadData()
+})
 </script>
 
 <template>

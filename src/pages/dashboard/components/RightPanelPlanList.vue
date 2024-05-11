@@ -84,6 +84,7 @@ import CustomEmpty from '@/components/CustomEmpty.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const emits = defineEmits(['refresh-left'])
 
 // 筛选 tab 相关
 type TabT = {
@@ -173,6 +174,7 @@ const handleOverPlan = async (planid: string) => {
     if (code !== 0) return
     resetPage()
     loadData(pageParams.value)
+    emits('refresh-left')
 }
 </script>
 

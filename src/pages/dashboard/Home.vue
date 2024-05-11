@@ -2,17 +2,17 @@
     <v-layout class="home-layout-container w-100 d-flex">
         <v-sheet class="layout-left bg-transparent d-flex flex-column">
             <v-sheet class="bg-transparent h-50 ml-4 mr-2 mb-4">
-                <LeftPanelTodo />
+                <LeftPanelTodo ref="leftPanelTodo" />
             </v-sheet>
             <v-sheet class="bg-transparent h-50 ml-4 mr-2 mb-4">
-                <LeftPanelAnalize />
+                <LeftPanelAnalize ref="leftPanelAna" />
             </v-sheet>
         </v-sheet>
         <v-sheet class="layout-center bg-transparent mx-2 mb-4">
             <CenterPanelNews />
         </v-sheet>
         <v-sheet class="layout-right bg-transparent ml-2 mr-4 mb-4">
-            <RightPanelPlanList />
+            <RightPanelPlanList @refresh-left="handleRefresh" />
         </v-sheet>
     </v-layout>
 </template>
@@ -22,6 +22,15 @@ import LeftPanelTodo from './components/LeftPanelTodo.vue'
 import CenterPanelNews from './components/CenterPanelNews.vue'
 import LeftPanelAnalize from './components/LeftPanelAnalize.vue'
 import RightPanelPlanList from './components/RightPanelPlanList.vue'
+import { ref } from 'vue'
+
+const leftPanelTodo = ref<InstanceType<typeof LeftPanelTodo>>()
+const leftPanelAna = ref<InstanceType<typeof LeftPanelAnalize>>()
+
+const handleRefresh = () => {
+    leftPanelAna.value?.reload()
+    leftPanelTodo.value?.reload()
+}
 </script>
 
 <style scoped lang="scss">
